@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/user_list_info_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/user_list_info_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/user_list_info_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_done_white_24px"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_list_info_anchor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/user_list_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/user_list_info_id_tag"
+            android:layout_marginLeft="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            tools:text="Tom" />
+
+        <TextView
+            android:id="@+id/user_list_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_above="@+id/user_list_info_id"
+            android:layout_marginLeft="32dp"
+            android:layout_toRightOf="@+id/user_list_info_name"
+            android:background="@drawable/rectangle_slide_tag"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            tools:text="@string/title_student" />
+
+        <TextView
+            android:id="@+id/user_list_info_id_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/user_list_info_email"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="ID:"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/user_list_info_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/user_list_info_email"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/user_list_info_id_tag"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            tools:text="123456" />
+
+        <TextView
+            android:id="@+id/user_list_info_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            tools:text="tom@example.com" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#F5F5F5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/askMe"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/user_list_info_private_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:textSize="17sp"
+                tools:text="开启" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/user_list_info_self_intro"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_new_question"
+            android:gravity="top"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            tools:text="自我介绍: 测试测试测试测试测试测试测试" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+

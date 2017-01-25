@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0277BD</color>
+    <color name="colorPrimaryDark">#01579B</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="light_gray">#fff5f5f5</color>
+    <color name="dark_gray">#616161</color>
+    <color name="money">#F9A825</color>
+    <color name="complete">#00C853</color>
+    <color name="processing">#FF6F00</color>
+    <color name="editTextHint">#E0E0E0</color>
+    <color name="askTag">#BDBDBD</color>
+</resources>

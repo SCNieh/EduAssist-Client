@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_gender_options">
+        <item>@string/gender_male</item>
+        <item>@string/gender_female</item>
+    </string-array>>
+    <string-array name="array_status">
+        <item>@string/allData</item>
+        <item>@string/solved</item>
+        <item>@string/unsolve</item>
+    </string-array>
+    <string-array name="array_category">
+        <item>@string/allData</item>
+        <item>@string/verbal</item>
+        <item>@string/math</item>
+        <item>@string/English</item>
+        <item>@string/physics</item>
+        <item>@string/chemistry</item>
+        <item>@string/biology</item>
+        <item>@string/politics</item>
+        <item>@string/history</item>
+        <item>@string/geography</item>
+    </string-array>
+    <string-array name="new_question_category">
+        <item>@string/verbal</item>
+        <item>@string/math</item>
+        <item>@string/English</item>
+        <item>@string/physics</item>
+        <item>@string/chemistry</item>
+        <item>@string/biology</item>
+        <item>@string/politics</item>
+        <item>@string/history</item>
+        <item>@string/geography</item>
+    </string-array>
+    <string-array name="array_attr">
+        <item>@string/allData</item>
+        <item>@string/mPrivate</item>
+        <item>@string/mPublic</item>
+    </string-array>
+</resources>

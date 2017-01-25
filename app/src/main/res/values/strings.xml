@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">EduAssist</string>
+
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="solved">已完成</string>
+    <string name="unsolve">进行中</string>  <!-- 0: 语文, 1: 数学, 2: 英语, 3: 物理, 4: 化学, 5: 生物, 6: 政治, 7: 历史, 8: 地理 -->
+    <string name="verbal">语文</string>
+    <string name="math">数学</string>
+    <string name="English">英语</string>
+    <string name="physics">物理</string>
+    <string name="chemistry">化学</string>
+    <string name="biology">生物</string>
+    <string name="politics">政治</string>
+    <string name="history">历史</string>
+    <string name="geography">地理</string>
+    <string name="mPrivate">私密</string>
+    <string name="mPublic">公开</string>
+    <string name="allData">全部</string>
+    <string name="noData">暂无数据</string>
+    <string name="searchQuestions">搜索题目</string>
+    <string name="askPublic">公开提问</string>
+    <string name="askPrivate">私密提问</string>
+    <string name="inputQuestion">输入问题</string>
+    <string name="inputValue">输入赏金</string>
+    <string name="title">标题</string>
+    <string name="text">问题补充</string>
+    <string name="success">提交成功！</string>
+    <string name="failed">提交失败，请检查网络！</string>
+    <string name="check">确定</string>
+    <string name="cancel">取消</string>
+    <string name="myInfo">我的信息</string>
+    <string name="myQuestions">我的提问</string>
+    <string name="myAnswers">我的回答</string>
+    <string name="myAppointment">我的预约</string>
+    <string name="id">ID:</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登陆</string>
+    <string name="register">还没有账号？去创建一个</string>
+    <string name="register_title">注册</string>
+    <string name="email">Email</string>
+    <string name="tel">Tel</string>
+    <string name="gender">性别</string>
+    <string name="title_teacher">教师</string>
+    <string name="title_student">学生</string>
+    <string name="submit">提交</string>
+    <string name="askMe">向我提问:</string>
+    <string name="open">开启</string>
+    <string name="closed">关闭</string>
+    <string name="searchUser">搜索用户</string>
+    <string name="search">搜索</string>
+    <string name="target">提问对象:</string>
+    <string name="loading">加载中...</string>
+    
+</resources>
