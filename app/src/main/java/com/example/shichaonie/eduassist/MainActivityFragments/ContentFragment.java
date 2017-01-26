@@ -9,13 +9,17 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shichaonie.eduassist.MainActivityFragments.ContentFragmentUtils.QuestionAdapter;
 import com.example.shichaonie.eduassist.MainActivityFragments.ContentFragmentUtils.QuestionLoader;
@@ -42,6 +46,7 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private int questionAttr = -1;
     private ProgressBar mProgressBar;
     private TextView emptyView;
+    private EditText searchEdit;
     private ArrayList<QuestionData> questionList = new ArrayList<>();
     private ArrayList<QuestionData> filteredQuestionList = new ArrayList<>();
     public String keywords = null;
@@ -54,6 +59,7 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.content_fragment, container, false);
+        initTitleView();
         initFilterView();
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.question_list_swip_layout);
@@ -62,6 +68,8 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                searchEdit.clearFocus();
+                keywords = searchEdit.getText().toString();
                 getLoaderManager().restartLoader(0, null, ContentFragment.this).forceLoad();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -71,6 +79,20 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         getLoaderManager().initLoader(0, null, this).forceLoad();
 
         return rootView;
+    }
+    private void initTitleView(){
+        searchEdit = (EditText) rootView.findViewById(R.id.search_edit);
+        searchEdit.clearFocus();
+        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    keywords = searchEdit.getText().toString();
+                    getLoaderManager().restartLoader(0, null, ContentFragment.this).forceLoad();
+                }
+                return true;
+            }
+        });
     }
     private void initFilterView(){
         NiceSpinner niceSpinnerStatus = (NiceSpinner) rootView.findViewById(R.id.nice_spinner_status);
@@ -98,6 +120,7 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private AdapterView.OnItemSelectedListener  filterSelectedStatus = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            searchEdit.clearFocus();
             questionStatus = position - 1;
             filteredQuestionList = filterData(questionList, questionStatus, questionCategory, questionAttr);
             updateUi(filteredQuestionList);
@@ -111,6 +134,7 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private AdapterView.OnItemSelectedListener filterSelectedCatetory = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            searchEdit.clearFocus();
             questionCategory = position - 1;
             filteredQuestionList = filterData(questionList, questionStatus, questionCategory, questionAttr);
             updateUi(filteredQuestionList);
@@ -124,6 +148,7 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private AdapterView.OnItemSelectedListener filterSelectedAttr = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            searchEdit.clearFocus();
             questionAttr = position - 1;
             filteredQuestionList = filterData(questionList, questionStatus, questionCategory, questionAttr);
             updateUi(filteredQuestionList);
@@ -142,7 +167,6 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         mProgressBar.setVisibility(View.VISIBLE);
         emptyView = (TextView) rootView.findViewById(R.id.empty_view);
         emptyView.setVisibility(View.GONE);
-
         return new QuestionLoader(this.getContext(), keywords);
     }
 
@@ -173,6 +197,7 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
 //                Intent intent = new Intent(Intent.ACTION_VIEW);
 //                intent.setData(Uri.parse(Integer.toString(data.get(position).getmId())));
 //                startActivity(intent);
+                searchEdit.clearFocus();
             }
         });
 

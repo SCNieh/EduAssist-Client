@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fm = this.getSupportFragmentManager();
-        fm.findFragmentById(R.id.title_fragment).getView().findViewById(R.id.menu_btn).setOnClickListener(new View.OnClickListener() {
+        fm.findFragmentById(R.id.content_fragment).getView().findViewById(R.id.menu_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 slidingMenu.toggle();

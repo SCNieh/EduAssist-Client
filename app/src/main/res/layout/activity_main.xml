@@ -11,19 +11,12 @@
         android:id="@+id/main_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <fragment
-            android:id="@+id/title_fragment"
-            android:name="com.example.shichaonie.eduassist.MainActivityFragments.TitleFragment"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            tools:layout="@layout/title_fragment" />
 
         <fragment
             android:id="@+id/content_fragment"
             android:name="com.example.shichaonie.eduassist.MainActivityFragments.ContentFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title_fragment"
             tools:layout="@layout/content_fragment" />
 
         <android.support.design.widget.FloatingActionButton

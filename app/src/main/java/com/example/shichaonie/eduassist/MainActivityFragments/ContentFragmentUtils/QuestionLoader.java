@@ -37,11 +37,11 @@ public class QuestionLoader extends android.support.v4.content.AsyncTaskLoader<A
     @Override
     public ArrayList<QuestionData> loadInBackground() {
         String is, Info = null;
-        if(mKeywords == null){
+        if(mKeywords == null || mKeywords.isEmpty() || mKeywords.equals("null")){
             is = HttpUtil.myConnectionGET(URL_QUESTIONS_BASE);
         }
         else {
-            String newUrl = URL_QUESTIONS_BASE + "/search/";
+            String newUrl = URL_QUESTIONS_BASE + "search/";
             try{
                 JSONObject json = new JSONObject();
                 json.put("keywords", mKeywords);
