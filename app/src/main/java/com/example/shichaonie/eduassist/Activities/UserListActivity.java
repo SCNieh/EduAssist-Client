@@ -41,7 +41,7 @@ public class UserListActivity extends AppCompatActivity{
                     userId = user.getId();
                 }
 
-                Intent intent = new Intent(UserListActivity.this, UserInfoActivity.class);
+                Intent intent = new Intent(UserListActivity.this, UserListInfoActivity.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
 

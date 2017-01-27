@@ -28,6 +28,7 @@ import static android.R.attr.data;
 import static android.R.attr.numberPickerStyle;
 import static android.R.attr.updatePeriodMillis;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static android.view.View.GONE;
 
 /**
  * Created by Shichao Nie on 2017/1/4.
@@ -94,10 +95,19 @@ public class UserInfoFragment extends Fragment implements LoaderManager.LoaderCa
             userInfoName.setText(data.getmName());
             userInfoTitle.setText(ConvertUtil.toTitle(data.getTitle()));
             userInfoId.setText(Integer.toString(data.getId()));
-            userInfoEmail.setText(data.getEmail());
+            if(data.getEmail() == null || data.getEmail().isEmpty() || data.getEmail().equals("null")){
+                userInfoEmail.setVisibility(GONE);
+            }else {
+                userInfoEmail.setText(data.getEmail());
+            }
             userInfoPrivateMode.setText(ConvertUtil.toPrivateMode(data.getmPrivateCode()));
-            userInfoSelfIntro.setText(data.getmSelfIntro());
+            if(data.getmSelfIntro() == null || data.getmSelfIntro().isEmpty() || data.getmSelfIntro().equals("null")){
+                userInfoSelfIntro.setText("无");
+            }else {
+                userInfoSelfIntro.setText(data.getmSelfIntro());
+            }
         }
+
 
     }
 }

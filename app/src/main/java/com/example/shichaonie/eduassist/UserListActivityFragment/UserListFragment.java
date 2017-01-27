@@ -127,13 +127,6 @@ public class UserListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateUI(final ArrayList<User> users){
-        emptyView = (TextView) rootView.findViewById(R.id.user_list_empty_view);
-        emptyView.setText(R.string.noData);
-        if(users == null || users.isEmpty()){
-            emptyView.setVisibility(View.VISIBLE);
-        }else {
-            emptyView.setVisibility(View.GONE);
-        }
 
         SharedPreferences sp = getActivity().getSharedPreferences("userInfo", MODE_PRIVATE);
         String userId = sp.getString(ConstantContract.SP_USER_ID, null);
@@ -141,10 +134,17 @@ public class UserListFragment extends Fragment implements LoaderManager.LoaderCa
 
         while (iter.hasNext()){
             if(Integer.toString(iter.next().getId()).equals(userId)){
-                iter.remove();
+                iter.remove(); //remove user himself
             }
         }
 
+        emptyView = (TextView) rootView.findViewById(R.id.user_list_empty_view);
+        emptyView.setText(R.string.noData);
+        if(users == null || users.isEmpty()){
+            emptyView.setVisibility(View.VISIBLE);
+        }else {
+            emptyView.setVisibility(View.GONE);
+        }
 
         final UserAdapter adapter = new UserAdapter(getContext(), users);
 

@@ -52,5 +52,6 @@
     <string name="search">搜索</string>
     <string name="target">提问对象:</string>
     <string name="loading">加载中...</string>
+    <string name="private_mode_not_support">该用户关闭了“向他提问”</string>
     
 </resources>

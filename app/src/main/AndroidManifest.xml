@@ -42,7 +42,7 @@
                 android:value=".Activities.MainActivity" />
         </activity>
         <activity android:name=".Activities.UserListActivity"/>
-        <activity android:name=".Activities.UserInfoActivity"/>
+        <activity android:name=".Activities.UserListInfoActivity"/>
     </application>
 
 </manifest>

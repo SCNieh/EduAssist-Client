@@ -1,9 +1,9 @@
 package com.example.shichaonie.eduassist.Activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -11,19 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shichaonie.eduassist.MainActivityFragments.UserInfoFragmentUtil.UserInfoLoader;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.User;
 import com.example.shichaonie.eduassist.Utils.ConvertUtil;
 
-import static java.security.AccessController.getContext;
+import static android.view.View.GONE;
 
 /**
  * Created by Shichao Nie on 2017/1/19.
  */
 
-public class UserInfoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<User> {
+public class UserListInfoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<User> {
     public FragmentManager fm;
     public User user;
     public String userId = null;
@@ -56,15 +57,22 @@ public class UserInfoActivity extends AppCompatActivity implements LoaderManager
     public void onLoadFinished(Loader<User> loader, User data) {
         user = data;
         final ImageView userSelect = (ImageView) findViewById(R.id.user_list_info_select);
+        if(user.getmPrivateCode() == 0){
+            userSelect.setVisibility(GONE);
+            Toast.makeText(UserListInfoActivity.this, R.string.private_mode_not_support, Toast.LENGTH_LONG).show();
+        }else {
+            userSelect.setVisibility(View.VISIBLE);
+        }
         userSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserInfoActivity.this, NewQuestionActivity.class);
-                intent.putExtra("targetUsername", user.getUsername());
+                Intent intent = new Intent(UserListInfoActivity.this, NewQuestionActivity.class);
+                intent.putExtra("targetName", user.getmName());
                 intent.putExtra("targetId", user.getId());
                 startActivity(intent);
             }
         });
+
         updateUI(user);
     }
 
@@ -84,9 +92,17 @@ public class UserInfoActivity extends AppCompatActivity implements LoaderManager
             userInfoName.setText(data.getmName());
             userInfoTitle.setText(ConvertUtil.toTitle(data.getTitle()));
             userInfoId.setText(Integer.toString(data.getId()));
-            userInfoEmail.setText(data.getEmail());
+            if(data.getEmail() == null || data.getEmail().isEmpty() || data.getEmail().equals("null")){
+                userInfoEmail.setVisibility(GONE);
+            }else {
+                userInfoEmail.setText(data.getEmail());
+            }
             userInfoPrivateMode.setText(ConvertUtil.toPrivateMode(data.getmPrivateCode()));
-            userInfoSelfIntro.setText(data.getmSelfIntro());
+            if(data.getmSelfIntro() == null || data.getmSelfIntro().isEmpty() || data.getmSelfIntro().equals("null")){
+                userInfoSelfIntro.setText("无");
+            }else {
+                userInfoSelfIntro.setText(data.getmSelfIntro());
+            }
         }
 
     }

@@ -49,7 +49,7 @@ public class NewQuestionActivity extends AppCompatActivity {
     EditText newQuestionTitle;
     EditText newQuestionText;
     private int questionAttr; //0: private, 1: public
-    private String targetUsername;
+    private String targetName;
     private int targetId;
     private static final String URL_SEND_PUBLIC = "http://10.0.2.2:5000/questions/add/public/";
     private static final String URL_SEND_PRIVATE = "http://10.0.2.2:5000/questions/add/private/";
@@ -60,9 +60,9 @@ public class NewQuestionActivity extends AppCompatActivity {
         setContentView(R.layout.new_question);
 
         Intent intent = getIntent();
-        if(intent != null && intent.getStringExtra("targetUsername") != null){
+        if(intent != null && intent.getStringExtra("targetName") != null){
             questionAttr = 0;
-            targetUsername = intent.getStringExtra("targetUsername");
+            targetName = intent.getStringExtra("targetName");
             targetId = intent.getIntExtra("targetId", -1);
         }else {
             questionAttr = 1;
@@ -76,7 +76,7 @@ public class NewQuestionActivity extends AppCompatActivity {
             targetObject.setVisibility(GONE);
         }else {
             targetObject.setVisibility(View.VISIBLE);
-            username.setText(targetUsername);
+            username.setText(targetName);
         }
 
         ImageView backBtn = (ImageView) findViewById(R.id.new_question_back);

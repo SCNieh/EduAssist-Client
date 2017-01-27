@@ -34,7 +34,7 @@
             android:id="@+id/shelter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/title_fragment"
+            android:layout_marginTop="50dp"
             android:background="#aaffffff"
             android:visibility="invisible" />
 
