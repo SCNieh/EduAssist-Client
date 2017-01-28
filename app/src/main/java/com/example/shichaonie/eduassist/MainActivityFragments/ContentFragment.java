@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,10 +22,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shichaonie.eduassist.Activities.QuestionDetailActivity;
 import com.example.shichaonie.eduassist.MainActivityFragments.ContentFragmentUtils.QuestionAdapter;
 import com.example.shichaonie.eduassist.MainActivityFragments.ContentFragmentUtils.QuestionLoader;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
+import com.example.shichaonie.eduassist.UserData.User;
+import com.example.shichaonie.eduassist.UserListUtils.UserAdapter;
 import com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner;
 import com.example.shichaonie.eduassist.Utils.DataFilter;
 
@@ -188,15 +192,25 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         }
 
         QuestionAdapter adapter = new QuestionAdapter(this.getContext(), data);
-        ListView questionList = (ListView) rootView.findViewById(R.id.question_list);
+        final ListView questionList = (ListView) rootView.findViewById(R.id.question_list);
         questionList.setAdapter(adapter);
 
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                intent.setData(Uri.parse(Integer.toString(data.get(position).getmId())));
-//                startActivity(intent);
+                if (id < -1) { //headview || footview
+                    return;
+                }
+                QuestionAdapter adapter = (QuestionAdapter) questionList.getAdapter();
+                QuestionData question = adapter.getItem((int) id);
+                int questionId = 0;
+                if (question != null) {
+                    questionId = question.getmId();
+                }
+                Intent intent = new Intent(getContext(), QuestionDetailActivity.class);
+                intent.putExtra("questionId", questionId);
+                startActivity(intent);
+
                 searchEdit.clearFocus();
             }
         });

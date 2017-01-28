@@ -10,4 +10,5 @@
     <color name="processing">#FF6F00</color>
     <color name="editTextHint">#E0E0E0</color>
     <color name="askTag">#BDBDBD</color>
+    <color name="darkGrayBackground">#EEEEEE</color>
 </resources>

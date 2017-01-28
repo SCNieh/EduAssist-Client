@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/darkGrayBackground">
+
+    <RelativeLayout
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_new_question"
+        android:elevation="4dip">
+        <LinearLayout
+            android:id="@+id/question_answer_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/question_answer_user_name"
+                android:layout_margin="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Tom"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp"/>
+            <TextView
+                android:layout_margin="8dp"
+                android:id="@+id/question_answer_user_selfIntro"
+                android:layout_toRightOf="@+id/question_answer_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="I'm Tom, I'm an object for test, those words here"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/question_answer_user_answer"
+            android:layout_below="@id/question_answer_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            tools:text="Those Lines here is just to show the user'answer to this question and to test the max line &amp; ellipsize config, and what ever I surrender "
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:maxLines="3"
+            android:ellipsize="end"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -25,6 +25,7 @@ public class QuestionData {
     private String mRefuse_reason;
     private float mValue;
 
+    public  QuestionData(){}
     public QuestionData(int id, int ask_id, int category, String title, int attribute, int question_status, float value){
         mId = id;
         mAsk_id = ask_id;
@@ -45,6 +46,7 @@ public class QuestionData {
         mValue = value;
     }
 
+    //private mode
     public QuestionData(int id, int ask_id, int invited_id, int category, String title, String content_text, String content_image,
                         String content_voice, int attribute, int question_status, int invite_status, String refuse_reason, float value){
         mId = id;
@@ -59,6 +61,20 @@ public class QuestionData {
         mQuestion_status = question_status;
         mInvite_status = invite_status;
         mRefuse_reason = refuse_reason;
+        mValue = value;
+    }
+    //public mode
+    public QuestionData(int id, int ask_id, int category, String title, String content_text, String content_image,
+                        String content_voice, int attribute, int question_status, float value){
+        mId = id;
+        mAsk_id = ask_id;
+        mCategory = category;
+        mTitle = title;
+        mContent_text = content_text;
+        mContent_image = content_image;
+        mContent_voice = content_voice;
+        mAttribute = attribute;
+        mQuestion_status = question_status;
         mValue = value;
     }
 
