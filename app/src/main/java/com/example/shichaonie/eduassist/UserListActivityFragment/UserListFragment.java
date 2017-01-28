@@ -64,12 +64,12 @@ public class UserListFragment extends Fragment implements LoaderManager.LoaderCa
             @Override
             public void onClick(View v) {
                 keywords = searchUser.getText().toString();
-
                 if (getLoaderManager().getLoader(0) == null) {
                     getLoaderManager().initLoader(0, null, UserListFragment.this).forceLoad();
                 } else {
                     getLoaderManager().restartLoader(0, null, UserListFragment.this);
                 }
+                searchUser.clearFocus();
 
             }
         });
@@ -77,15 +77,15 @@ public class UserListFragment extends Fragment implements LoaderManager.LoaderCa
         searchUser.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                keywords = searchUser.getText().toString();
-
                 if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    keywords = searchUser.getText().toString();
                     if(getLoaderManager().getLoader(0) == null){
                         getLoaderManager().initLoader(0, null, UserListFragment.this).forceLoad();
                     }else {
-                        getLoaderManager().restartLoader(0, null, UserListFragment.this);
+                        getLoaderManager().restartLoader(0, null, UserListFragment.this).forceLoad();
                     }
                 }
+                searchUser.clearFocus();
                 return true;
             }
         });
@@ -95,8 +95,10 @@ public class UserListFragment extends Fragment implements LoaderManager.LoaderCa
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                keywords = searchUser.getText().toString();
                 getLoaderManager().restartLoader(0, null, UserListFragment.this).forceLoad();
                 swipeRefreshLayout.setRefreshing(false);
+                searchUser.clearFocus();
             }
         });
 
