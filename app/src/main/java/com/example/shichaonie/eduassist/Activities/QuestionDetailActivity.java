@@ -10,7 +10,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.shichaonie.eduassist.AnswerListUtils.AnswerAdapter;
+import com.example.shichaonie.eduassist.AnswerListUtils.AnswerLoader;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.AnswerData;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
@@ -24,13 +27,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.example.shichaonie.eduassist.R.id.question_title;
 import static com.example.shichaonie.eduassist.R.string.gender;
 
 /**
  * Created by Shichao Nie on 2017/1/28.
  */
 
-public class QuestionDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<AnswerData> {
+public class QuestionDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<AnswerData>> {
     private int questionId;
     private ListView listView;
 
@@ -45,6 +49,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         iniView();
         iniQuestion();
 
+        getSupportLoaderManager().initLoader(0, null, this).forceLoad();
     }
     private void iniView(){
         ImageView imageBack = (ImageView) findViewById(R.id.question_detail_back);
@@ -54,111 +59,43 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
                 finish();
             }
         });
-
-        listView = (ListView) findViewById(R.id.question_detail_list);
-        View headView = getLayoutInflater().inflate(R.layout.question_detail_list_head_view, listView, false);
-        listView.addHeaderView(headView);
     }
     private void iniQuestion(){
         String url = ConstantContract.URL_QUESTIONS_BASE + questionId + "/";
         GetQuestionUtil getQuestionUtil = new GetQuestionUtil(url, QuestionDetailActivity.this);
         String questionInfo = getQuestionUtil.returnInfo();
-        QuestionData questionData = extractFeatureFromJson(questionInfo);
+        QuestionData questionData = getQuestionUtil.extractFeatureFromJson(questionInfo);
+        upHeadView(questionData);
     }
-    private QuestionData extractFeatureFromJson(String questionJSON) {
-        if (TextUtils.isEmpty(questionJSON)) {
-            return new QuestionData();
-        }
-        try {
-            JSONObject jsonObject = new JSONObject(questionJSON);
-            JSONObject questionInfo = jsonObject.getJSONObject("Questions_data");
-            String question_title = questionInfo.getString("title");
-            String content_text = questionInfo.getString("content_text");
-            String content_image = questionInfo.getString("content_image");
-            String content_voice = questionInfo.getString("content_voice");
-            String refuse_resaon = questionInfo.getString("refuse_reason");
-            int id;
-            int ask_id;
-            int invited_id;
-            int category;
-            int attribute;
-            int question_status;
-            int invite_status;
-            float value;
-            if(questionInfo.getString("id") != null){
-                id = questionInfo.getInt("id");
-            }else {
-                id = -1;
-            }
-            if(questionInfo.getString("ask_id") != null) {
-                ask_id = questionInfo.getInt("title");
-            }else{
-                ask_id = -1;
-            }
-            if(questionInfo.getString("category") != null){
-                category = questionInfo.getInt("category");
-            }else {
-                category = 0;
-            }
-            if(questionInfo.getString("question_status") != null){
-                question_status = questionInfo.getInt("question_status");
-            }else {
-                question_status = 1;
-            }
-            if(questionInfo.getString("value") != null){
-                value = Float.parseFloat(questionInfo.getString("value"));
-            }else {
-                value = (float) 0.0;
-            }
-            question_title = questionInfo.getString("question_title");
-            content_text = questionInfo.getString("content_text");
-            content_image = questionInfo.getString("content_iamge");
-            content_voice = questionInfo.getString("content_voice");
+    private void upHeadView(QuestionData data){
+        listView = (ListView) findViewById(R.id.question_detail_list);
+        View headView = getLayoutInflater().inflate(R.layout.question_detail_list_head_view, listView, false);
+        TextView questionTitle = (TextView) headView.findViewById(R.id.question_detail_title);
+        questionTitle.setText(data.getmTitle());
+        TextView questionText = (TextView) headView.findViewById(R.id.question_detail_text);
+        questionText.setText(data.getmContent_text());
 
-            if(questionInfo.getString("attribute") != null){
-                attribute = questionInfo.getInt("attribute");
-                if(questionInfo.getString("attribute").equals("0")){ //if private mode
-                    if(questionInfo.getString("invited_id") != null){
-                        invited_id = questionInfo.getInt("invited_id");
-                    }else {
-                        invited_id = -1;
-                    }
-                    if(questionInfo.getString("invite_status") != null){
-                        invite_status = questionInfo.getInt("invite_status");
-                        if(invite_status == 1){ // if refused
-                            if(questionInfo.getString("refuse_reason") != null){
-                                refuse_resaon = questionInfo.getString("refuse_reason");
-                            }else {
-                                refuse_resaon = "";
-                            }
-                            return new QuestionData(id, ask_id, invited_id, category, question_title, content_text, content_image, content_voice, attribute, question_status, invite_status, refuse_resaon, value);
-                        }
-                    }
-                }else {
-                    return new QuestionData(id, ask_id,category, question_title, content_text, content_image, content_voice, attribute, question_status, value);
-                }
-            }else {
-                return new QuestionData();
-            }
+        listView.addHeaderView(headView);
+    }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new QuestionData();
+
+    @Override
+    public Loader<ArrayList<AnswerData>> onCreateLoader(int id, Bundle args) {
+        return new AnswerLoader(this, questionId);
     }
 
     @Override
-    public Loader<AnswerData> onCreateLoader(int id, Bundle args) {
-        return null;
+    public void onLoadFinished(Loader<ArrayList<AnswerData>> loader, ArrayList<AnswerData> data) {
+        updateAnswers(data);
     }
 
     @Override
-    public void onLoadFinished(Loader<AnswerData> loader, AnswerData data) {
-
+    public void onLoaderReset(Loader<ArrayList<AnswerData>> loader) {
+        updateAnswers(new ArrayList<AnswerData>());
     }
 
-    @Override
-    public void onLoaderReset(Loader<AnswerData> loader) {
-
+    private void updateAnswers(ArrayList<AnswerData> data){
+        AnswerAdapter adapter = new AnswerAdapter(this, data);
+        listView.setAdapter(adapter);
     }
 }

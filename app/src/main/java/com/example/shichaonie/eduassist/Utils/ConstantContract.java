@@ -11,6 +11,7 @@ public class ConstantContract {
     public static final String BASE_URL = "http://10.0.2.2:5000/";
     public static final String URL_QUESTIONS_BASE = "http://10.0.2.2:5000/questions/";
     public static final String URL_USER_BASE = "http://10.0.2.2:5000/users/";
+    public static final String URL_ANSWER_BASE = "http://10.0.2.2:5000/answers/";
 //    public static final String BASE_URL = "http://10.147.194.248:5000/";
 //    public static final String URL_QUESTIONS_BASE = "http://10.147.194.248:5000/questions/";
 //    public static final String URL_USER_BASE = "http://10.147.194.248:5000/users/";

@@ -11,6 +11,8 @@ public class AnswerData {
     private int mId;
     private int mQuestion_Id;
     private int mAnswers_id;
+    private String mAnswer_name;
+    private String mAnswer_selfIntro;
     private String mContent_text;
     private String mContent_image;
     private String mContent_voice;
@@ -18,19 +20,23 @@ public class AnswerData {
 
     public AnswerData(){
     }
-    public AnswerData(int id, int question_id, int answers_id, String content_text, String content_image, String content_voice, int status){
+    public AnswerData(int id, int question_id, int answers_id, String answer_name, String answer_selfIntro, String content_text, String content_image, String content_voice, int status){
         mId = id;
         mQuestion_Id = question_id;
         mAnswers_id = answers_id;
+        mAnswer_name = answer_name;
+        mAnswer_selfIntro = answer_selfIntro;
         mContent_text = content_text;
         mContent_image = content_image;
         mContent_voice = content_voice;
         mStatus = status;
     }
-    public AnswerData(int id, int question_id, int answers_id, String content_text, int status){
+    public AnswerData(int id, int question_id, int answers_id, String answer_name, String answer_selfIntro, String content_text, int status){
         mId = id;
         mQuestion_Id = question_id;
         mAnswers_id = answers_id;
+        mAnswer_name = answer_name;
+        mAnswer_selfIntro = answer_selfIntro;
         mContent_text = content_text;
         mStatus = status;
     }
@@ -45,6 +51,14 @@ public class AnswerData {
 
     public int getmAnswers_id() {
         return mAnswers_id;
+    }
+
+    public String getmAnswer_name() {
+        return mAnswer_name;
+    }
+
+    public String getmAnswer_selfIntro() {
+        return mAnswer_selfIntro;
     }
 
     public String getmContent_text() {

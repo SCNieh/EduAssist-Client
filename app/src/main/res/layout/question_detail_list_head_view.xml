@@ -23,7 +23,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"/>
             <TextView
-                android:id="@+id/question_answer_user_answer"
+                android:id="@+id/question_detail_text"
                 android:layout_below="@id/question_detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

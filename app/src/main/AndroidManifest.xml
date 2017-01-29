@@ -43,6 +43,7 @@
         </activity>
         <activity android:name=".Activities.UserListActivity"/>
         <activity android:name=".Activities.UserListInfoActivity"/>
+        <activity android:name=".Activities.QuestionDetailActivity"/>
     </application>
 
 </manifest>
