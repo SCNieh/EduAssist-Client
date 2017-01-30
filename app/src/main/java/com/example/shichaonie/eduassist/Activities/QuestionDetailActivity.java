@@ -3,6 +3,7 @@ package com.example.shichaonie.eduassist.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +58,16 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.question_detail_add_answer);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuestionDetailActivity.this, NewAnswerActivity.class);
+                intent.putExtra("questionId", questionId);
+                startActivity(intent);
             }
         });
     }

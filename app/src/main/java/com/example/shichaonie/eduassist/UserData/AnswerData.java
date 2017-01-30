@@ -40,6 +40,11 @@ public class AnswerData {
         mContent_text = content_text;
         mStatus = status;
     }
+    public AnswerData(int question_id, int answers_id, String content_text){
+        mQuestion_Id = question_id;
+        mAnswers_id = answers_id;
+        mContent_text = content_text;
+    }
 
     public int getmId() {
         return mId;

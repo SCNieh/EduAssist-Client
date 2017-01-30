@@ -56,5 +56,7 @@
     <string name="question_detail_title">问题详情</string>
     <string name="userAnswers">用户回答</string>
     <string name="loadFailed">加载失败!</string>
+    <string name="inputAnswer">输入答案</string>
+    <string name="answerText">输入文字</string>
     
 </resources>
