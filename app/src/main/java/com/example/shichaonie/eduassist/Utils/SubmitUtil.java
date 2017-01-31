@@ -26,9 +26,11 @@ public class SubmitUtil {
     private static String mUrl;
     private static myAsyncTask task;
     private static String mIs = null;
+    private RelativeLayout shelterLayout;
     private static AppCompatActivity activity;
 
-    public SubmitUtil(String Info, String url, AppCompatActivity appCompatActivity){
+    public SubmitUtil(String Info, String url, RelativeLayout layout, AppCompatActivity appCompatActivity){
+        shelterLayout = layout;
         mInfo = Info;
         mUrl = url;
         activity = appCompatActivity;
@@ -58,12 +60,11 @@ public class SubmitUtil {
         @Override
         protected void onPostExecute(String s) {
             mIs = s;
-            RelativeLayout newQuestionShelter = (RelativeLayout) activity.findViewById(R.id.new_question_shelter);
             if(mIs != null && mIs.equals("Success")){
-                newQuestionShelter.setVisibility(View.GONE);
+                shelterLayout.setVisibility(View.GONE);
                 showSuccessDialog(activity.getString(R.string.success), finishListener, finishListener);
             }else {
-                newQuestionShelter.setVisibility(View.GONE);
+                shelterLayout.setVisibility(View.GONE);
                 showSuccessDialog(activity.getString(R.string.failed), stayListener, stayListener);
             }
         }

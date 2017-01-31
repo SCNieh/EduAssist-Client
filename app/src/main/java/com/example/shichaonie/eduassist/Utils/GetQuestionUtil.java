@@ -6,7 +6,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
@@ -21,15 +23,16 @@ import org.json.JSONObject;
 public class GetQuestionUtil {
     private static String mUrl;
     private static myAsyncTask task;
-    private static String mIs = null;
+    private ListView listView;
     private static AppCompatActivity activity;
 
-    public GetQuestionUtil(String url, AppCompatActivity appCompatActivity){
+    public GetQuestionUtil(String url, ListView list, AppCompatActivity appCompatActivity){
         mUrl = url;
+        listView = list;
         activity = appCompatActivity;
     }
 
-    public String returnInfo(){
+    public void activate(){
         if(task == null){
             task = new myAsyncTask();
             task.execute(mUrl);
@@ -39,7 +42,6 @@ public class GetQuestionUtil {
             task = new myAsyncTask();
             task.execute(mUrl);
         }
-        return mIs;
     }
 
     private class myAsyncTask extends AsyncTask<String, Void, String>{
@@ -51,13 +53,23 @@ public class GetQuestionUtil {
 
         @Override
         protected void onPostExecute(String s) {
-            mIs = s;
             RelativeLayout QuestionDetailShelter = (RelativeLayout) activity.findViewById(R.id.question_detail_shelter);
-            if(mIs == null || mIs.isEmpty()){
+            if(s == null || s.isEmpty()){
                 QuestionDetailShelter.setVisibility(View.GONE);
                 showSuccessDialog(activity.getString(R.string.loadFailed), finishListener, finishListener);
             }
+            QuestionData questionData = extractFeatureFromJson(s);
+            upHeadView(questionData);
         }
+    }
+    private void upHeadView(QuestionData data){
+        View headView = activity.getLayoutInflater().inflate(R.layout.question_detail_list_head_view, listView, false);
+        TextView questionTitle = (TextView) headView.findViewById(R.id.question_detail_title);
+        questionTitle.setText(data.getmTitle());
+        TextView questionText = (TextView) headView.findViewById(R.id.question_detail_text);
+        questionText.setText(data.getmContent_text());
+
+        listView.addHeaderView(headView);
     }
     private void showSuccessDialog(String msg, DialogInterface.OnClickListener positiveClickListener, DialogInterface.OnClickListener negativeClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -95,7 +107,7 @@ public class GetQuestionUtil {
                 id = -1;
             }
             if(questionInfo.getString("ask_id") != null) {
-                ask_id = questionInfo.getInt("title");
+                ask_id = questionInfo.getInt("ask_id");
             }else{
                 ask_id = -1;
             }
@@ -116,7 +128,7 @@ public class GetQuestionUtil {
             }
             String question_title = questionInfo.getString("question_title");
             String content_text = questionInfo.getString("content_text");
-            String content_image = questionInfo.getString("content_iamge");
+            String content_image = questionInfo.getString("content_image");
             String content_voice = questionInfo.getString("content_voice");
             String refuse_reason;
 

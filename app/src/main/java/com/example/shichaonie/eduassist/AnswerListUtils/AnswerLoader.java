@@ -43,8 +43,7 @@ public class AnswerLoader extends AsyncTaskLoader<ArrayList<AnswerData>> {
             return answerData;
         }
         try {
-            JSONObject jsonObject = new JSONObject(answerJSON);
-            JSONArray jsonArray = jsonObject.getJSONArray("Answers_data");
+            JSONArray jsonArray = new JSONArray(answerJSON);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectAnswers = jsonArray.getJSONObject(i);
                 int id = jsonObjectAnswers.getInt("id");

@@ -77,11 +77,12 @@ public class QuestionLoader extends android.support.v4.content.AsyncTaskLoader<A
                 int ask_id = jsonObjectQuestion.getInt("ask_id");
                 int category = jsonObjectQuestion.getInt("category");
                 String title = jsonObjectQuestion.getString("title");
+                String text = jsonObjectQuestion.getString("content_text");
                 int attribute = jsonObjectQuestion.getInt("attribute");
                 int questionStatus = jsonObjectQuestion.getInt("question_status");
                 float value = (float) jsonObjectQuestion.getDouble("value");
 
-                questionData.add(new QuestionData(id, ask_id, category, title, attribute, questionStatus, value));
+                questionData.add(new QuestionData(id, ask_id, category, title, text,  attribute, questionStatus, value));
             }
             return questionData;
         } catch (JSONException e) {

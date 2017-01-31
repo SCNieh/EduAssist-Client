@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static android.R.attr.targetId;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static android.view.View.GONE;
 
@@ -137,12 +138,13 @@ public class NewQuestionActivity extends AppCompatActivity {
                 newQuestionShelter.setVisibility(View.VISIBLE);
 
             }
+            RelativeLayout shelterLayout = (RelativeLayout) findViewById(R.id.new_question_shelter);
             if(submitUtil == null){
                 newQuestion = makeQuestion(titleString, textString);
                 if(questionAttr == 1){
-                    submitUtil = new SubmitUtil(newQuestion, URL_SEND_PUBLIC, NewQuestionActivity.this);
+                    submitUtil = new SubmitUtil(newQuestion, URL_SEND_PUBLIC, shelterLayout, NewQuestionActivity.this);
                 }else {
-                    submitUtil = new SubmitUtil(newQuestion, URL_SEND_PRIVATE, NewQuestionActivity.this);
+                    submitUtil = new SubmitUtil(newQuestion, URL_SEND_PRIVATE, shelterLayout, NewQuestionActivity.this);
                 }
                 submitUtil.returnInfo();
             }else {

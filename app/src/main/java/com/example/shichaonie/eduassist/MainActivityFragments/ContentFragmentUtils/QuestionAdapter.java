@@ -38,6 +38,8 @@ public class QuestionAdapter extends ArrayAdapter<QuestionData> {
         TextView questionTitle = (TextView) listItemView.findViewById(R.id.question_title);
         questionTitle.setText(questionData.getmTitle());
 
+        TextView questionText = (TextView) listItemView.findViewById(R.id.question_text);
+        questionText.setText(questionData.getmContent_text());
 
         TextView categoryTag = (TextView) listItemView.findViewById(R.id.category_tag);
         categoryTag.setText(ConvertUtil.toCategory(questionData.getmCategory()));

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.AnswerData;
@@ -39,10 +40,10 @@ public class NewAnswerActivity extends AppCompatActivity {
                 EditText editText = (EditText) findViewById(R.id.new_answer_text);
                 String textString = editText.getText().toString();
                 String url = ConstantContract.URL_ANSWER_BASE + "add/";
-
+                RelativeLayout shelterLayout = (RelativeLayout) findViewById(R.id.new_answer_shelter);
                 if(submitUtil == null){
                     String newAnswer = makeAnswer(textString);
-                    submitUtil = new SubmitUtil(newAnswer, url, NewAnswerActivity.this);
+                    submitUtil = new SubmitUtil(newAnswer, url, shelterLayout, NewAnswerActivity.this);
                     submitUtil.returnInfo();
                 }else {
                     submitUtil.returnInfo();
@@ -53,7 +54,7 @@ public class NewAnswerActivity extends AppCompatActivity {
     private String makeAnswer(String text){
         SharedPreferences sp = getSharedPreferences(ConstantContract.SP_TAG, MODE_PRIVATE);
         int userId = Integer.parseInt(sp.getString("userId", null));
-        AnswerData answerData = new AnswerData(questionId, userId, text);
+        AnswerData answerData = new AnswerData(questionId, userId, text, 1);
         Gson gson = new Gson();
 
         return gson.toJson(answerData);

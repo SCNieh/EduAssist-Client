@@ -26,11 +26,12 @@ public class QuestionData {
     private float mValue;
 
     public  QuestionData(){}
-    public QuestionData(int id, int ask_id, int category, String title, int attribute, int question_status, float value){
+    public QuestionData(int id, int ask_id, int category, String title, String content_text,  int attribute, int question_status, float value){
         mId = id;
         mAsk_id = ask_id;
         mCategory = category;
         mTitle = title;
+        mContent_text = content_text;
         mAttribute = attribute;
         mQuestion_status = question_status;
         mValue = value;

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class AnswerData {
 
     private int mId;
-    private int mQuestion_Id;
+    private int mQuestion_id;
     private int mAnswers_id;
     private String mAnswer_name;
     private String mAnswer_selfIntro;
@@ -22,7 +22,7 @@ public class AnswerData {
     }
     public AnswerData(int id, int question_id, int answers_id, String answer_name, String answer_selfIntro, String content_text, String content_image, String content_voice, int status){
         mId = id;
-        mQuestion_Id = question_id;
+        mQuestion_id = question_id;
         mAnswers_id = answers_id;
         mAnswer_name = answer_name;
         mAnswer_selfIntro = answer_selfIntro;
@@ -33,17 +33,18 @@ public class AnswerData {
     }
     public AnswerData(int id, int question_id, int answers_id, String answer_name, String answer_selfIntro, String content_text, int status){
         mId = id;
-        mQuestion_Id = question_id;
+        mQuestion_id = question_id;
         mAnswers_id = answers_id;
         mAnswer_name = answer_name;
         mAnswer_selfIntro = answer_selfIntro;
         mContent_text = content_text;
         mStatus = status;
     }
-    public AnswerData(int question_id, int answers_id, String content_text){
-        mQuestion_Id = question_id;
+    public AnswerData(int question_id, int answers_id, String content_text, int status){
+        mQuestion_id = question_id;
         mAnswers_id = answers_id;
         mContent_text = content_text;
+        mStatus = status;
     }
 
     public int getmId() {
@@ -51,7 +52,7 @@ public class AnswerData {
     }
 
     public int getmQuestion_Id() {
-        return mQuestion_Id;
+        return mQuestion_id;
     }
 
     public int getmAnswers_id() {

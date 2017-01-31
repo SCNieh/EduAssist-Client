@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.shichaonie.eduassist.AnswerListUtils.AnswerAdapter;
@@ -37,7 +38,7 @@ import static com.example.shichaonie.eduassist.R.string.gender;
 
 public class QuestionDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<AnswerData>> {
     private int questionId;
-    private ListView listView;
+    public ListView listView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         getSupportLoaderManager().initLoader(0, null, this).forceLoad();
     }
     private void iniView(){
+        listView = (ListView) findViewById(R.id.question_detail_list);
         ImageView imageBack = (ImageView) findViewById(R.id.question_detail_back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,22 +75,11 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     }
     private void iniQuestion(){
         String url = ConstantContract.URL_QUESTIONS_BASE + questionId + "/";
-        GetQuestionUtil getQuestionUtil = new GetQuestionUtil(url, QuestionDetailActivity.this);
-        String questionInfo = getQuestionUtil.returnInfo();
-        QuestionData questionData = getQuestionUtil.extractFeatureFromJson(questionInfo);
-        upHeadView(questionData);
+        RelativeLayout progressBar = (RelativeLayout) findViewById(R.id.question_detail_shelter);
+        progressBar.setVisibility(View.VISIBLE);
+        GetQuestionUtil getQuestionUtil = new GetQuestionUtil(url, listView,  QuestionDetailActivity.this);
+        getQuestionUtil.activate();
     }
-    private void upHeadView(QuestionData data){
-        listView = (ListView) findViewById(R.id.question_detail_list);
-        View headView = getLayoutInflater().inflate(R.layout.question_detail_list_head_view, listView, false);
-        TextView questionTitle = (TextView) headView.findViewById(R.id.question_detail_title);
-        questionTitle.setText(data.getmTitle());
-        TextView questionText = (TextView) headView.findViewById(R.id.question_detail_text);
-        questionText.setText(data.getmContent_text());
-
-        listView.addHeaderView(headView);
-    }
-
 
     @Override
     public Loader<ArrayList<AnswerData>> onCreateLoader(int id, Bundle args) {
