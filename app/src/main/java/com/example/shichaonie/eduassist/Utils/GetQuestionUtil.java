@@ -54,8 +54,8 @@ public class GetQuestionUtil {
         @Override
         protected void onPostExecute(String s) {
             RelativeLayout QuestionDetailShelter = (RelativeLayout) activity.findViewById(R.id.question_detail_shelter);
+            QuestionDetailShelter.setVisibility(View.GONE);
             if(s == null || s.isEmpty()){
-                QuestionDetailShelter.setVisibility(View.GONE);
                 showSuccessDialog(activity.getString(R.string.loadFailed), finishListener, finishListener);
             }
             QuestionData questionData = extractFeatureFromJson(s);
