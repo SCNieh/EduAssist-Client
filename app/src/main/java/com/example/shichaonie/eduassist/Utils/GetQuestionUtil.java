@@ -10,11 +10,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.shichaonie.eduassist.Activities.QuestionDetailActivity;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.R.id.list;
 
 /**
  * Created by Shichao Nie on 2017/1/2.
@@ -24,11 +27,10 @@ public class GetQuestionUtil {
     private static String mUrl;
     private static myAsyncTask task;
     private ListView listView;
-    private static AppCompatActivity activity;
+    private static QuestionDetailActivity activity;
 
-    public GetQuestionUtil(String url, ListView list, AppCompatActivity appCompatActivity){
+    public GetQuestionUtil(String url, QuestionDetailActivity appCompatActivity){
         mUrl = url;
-        listView = list;
         activity = appCompatActivity;
     }
 
@@ -63,6 +65,7 @@ public class GetQuestionUtil {
         }
     }
     private void upHeadView(QuestionData data){
+        listView = activity.listView;
         View headView = activity.getLayoutInflater().inflate(R.layout.question_detail_list_head_view, listView, false);
         TextView questionTitle = (TextView) headView.findViewById(R.id.question_detail_title);
         questionTitle.setText(data.getmTitle());
@@ -126,7 +129,7 @@ public class GetQuestionUtil {
             }else {
                 value = (float) 0.0;
             }
-            String question_title = questionInfo.getString("question_title");
+            String question_title = questionInfo.getString("title");
             String content_text = questionInfo.getString("content_text");
             String content_image = questionInfo.getString("content_image");
             String content_voice = questionInfo.getString("content_voice");
@@ -149,6 +152,8 @@ public class GetQuestionUtil {
                                 refuse_reason = "";
                             }
                             return new QuestionData(id, ask_id, invited_id, category, question_title, content_text, content_image, content_voice, attribute, question_status, invite_status, refuse_reason, value);
+                        }else { //wait for response
+                            return new QuestionData(id, ask_id, invited_id, category, question_title, content_text, content_image, content_voice, attribute, question_status, invite_status, value);
                         }
                     }
                 }else {

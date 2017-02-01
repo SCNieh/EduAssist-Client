@@ -47,12 +47,16 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
 
         Intent intent = getIntent();
         questionId = intent.getIntExtra("questionId", -1);
-
         iniView();
         iniQuestion();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         getSupportLoaderManager().initLoader(0, null, this).forceLoad();
     }
+
     private void iniView(){
         listView = (ListView) findViewById(R.id.question_detail_list);
         ImageView imageBack = (ImageView) findViewById(R.id.question_detail_back);
@@ -77,7 +81,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         String url = ConstantContract.URL_QUESTIONS_BASE + questionId + "/";
         RelativeLayout progressBar = (RelativeLayout) findViewById(R.id.question_detail_shelter);
         progressBar.setVisibility(View.VISIBLE);
-        GetQuestionUtil getQuestionUtil = new GetQuestionUtil(url, listView,  QuestionDetailActivity.this);
+        GetQuestionUtil getQuestionUtil = new GetQuestionUtil(url, QuestionDetailActivity.this);
         getQuestionUtil.activate();
     }
 

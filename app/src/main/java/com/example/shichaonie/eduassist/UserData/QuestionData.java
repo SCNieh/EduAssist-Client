@@ -47,7 +47,7 @@ public class QuestionData {
         mValue = value;
     }
 
-    //private mode
+    //private mode: refused
     public QuestionData(int id, int ask_id, int invited_id, int category, String title, String content_text, String content_image,
                         String content_voice, int attribute, int question_status, int invite_status, String refuse_reason, float value){
         mId = id;
@@ -62,6 +62,22 @@ public class QuestionData {
         mQuestion_status = question_status;
         mInvite_status = invite_status;
         mRefuse_reason = refuse_reason;
+        mValue = value;
+    }
+    //private mode: wait for response
+    public QuestionData(int id, int ask_id, int invited_id, int category, String title, String content_text, String content_image,
+                        String content_voice, int attribute, int question_status, int invite_status, float value){
+        mId = id;
+        mAsk_id = ask_id;
+        mInvited_id = invited_id;
+        mCategory = category;
+        mTitle = title;
+        mContent_text = content_text;
+        mContent_image = content_image;
+        mContent_voice = content_voice;
+        mAttribute = attribute;
+        mQuestion_status = question_status;
+        mInvite_status = invite_status;
         mValue = value;
     }
     //public mode
