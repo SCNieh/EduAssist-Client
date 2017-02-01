@@ -46,6 +46,11 @@ public class AnswerData {
         mContent_text = content_text;
         mStatus = status;
     }
+    public AnswerData(String answer_name, String answer_selfIntro, String content_text){
+        mAnswer_name = answer_name;
+        mAnswer_selfIntro = answer_selfIntro;
+        mContent_text = content_text;
+    }
 
     public int getmId() {
         return mId;

@@ -45,6 +45,7 @@
         <activity android:name=".Activities.UserListInfoActivity"/>
         <activity android:name=".Activities.QuestionDetailActivity"/>
         <activity android:name=".Activities.NewAnswerActivity"/>
+        <activity android:name=".Activities.AnswerDetailActivity"/>
     </application>
 
 </manifest>

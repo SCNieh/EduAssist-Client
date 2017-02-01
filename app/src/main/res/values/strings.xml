@@ -58,5 +58,5 @@
     <string name="loadFailed">加载失败!</string>
     <string name="inputAnswer">输入答案</string>
     <string name="answerText">输入文字</string>
-    
+    <string name="answer_detail_title">答案详情</string>
 </resources>

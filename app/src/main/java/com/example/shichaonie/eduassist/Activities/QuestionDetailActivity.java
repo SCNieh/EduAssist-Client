@@ -9,10 +9,12 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shichaonie.eduassist.AnswerListUtils.AnswerAdapter;
 import com.example.shichaonie.eduassist.AnswerListUtils.AnswerLoader;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.example.shichaonie.eduassist.R.id.action_menu_presenter;
 import static com.example.shichaonie.eduassist.R.id.question_title;
 import static com.example.shichaonie.eduassist.R.string.gender;
 
@@ -103,5 +106,16 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     private void updateAnswers(ArrayList<AnswerData> data){
         AnswerAdapter adapter = new AnswerAdapter(this, data);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0){
+                    AnswerData answerData = (AnswerData) parent.getAdapter().getItem(position);
+                    Intent intent = new Intent(QuestionDetailActivity.this, AnswerDetailActivity.class);
+                    intent.putExtra("answerId", answerData.getmId());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
