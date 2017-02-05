@@ -48,13 +48,11 @@
                 android:background="@drawable/rectangle_tag"/>
 
             <ImageView
-                android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_attach_money"
-                android:contentDescription="@null"/>
+                android:src="@drawable/ic_attach_money"/>
             <TextView
                 android:id="@+id/question_value"
                 android:layout_width="wrap_content"
@@ -67,11 +65,9 @@
                 android:id="@+id/question_attr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:src = "@drawable/ic_lock"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@null"/>
+                android:layout_gravity="center_vertical"/>
         </LinearLayout>
     </LinearLayout>
     <ImageView

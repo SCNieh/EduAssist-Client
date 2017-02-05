@@ -159,7 +159,7 @@ public class NewQuestionActivity extends AppCompatActivity {
         sp = getSharedPreferences("userInfo", MODE_PRIVATE);
         int userId = Integer.parseInt(sp.getString("userId", null));
         float value = Float.parseFloat(newQuestionValue.getText().toString());
-        QuestionData questionData = new QuestionData(userId, newQuestionCategory, title, text, questionAttr, targetId, 1, value, 0);
+        QuestionData questionData = new QuestionData(userId, newQuestionCategory, title, text, questionAttr, targetId, 1, value);
         Gson gson = new Gson();
         return gson.toJson(questionData);
     }

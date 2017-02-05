@@ -2,7 +2,6 @@ package com.example.shichaonie.eduassist.Utils;
 
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -59,7 +58,7 @@ public class GetQuestionUtil {
             RelativeLayout QuestionDetailShelter = (RelativeLayout) activity.findViewById(R.id.question_detail_shelter);
             QuestionDetailShelter.setVisibility(View.GONE);
             if(s == null || s.isEmpty()){
-                SubmitUtil.showSuccessDialog(activity, activity.getString(R.string.loadFailed), finishListener, finishListener);
+                showSuccessDialog(activity.getString(R.string.loadFailed), finishListener, finishListener);
             }
             QuestionData questionData = extractFeatureFromJson(s);
             upHeadView(questionData);
@@ -72,12 +71,18 @@ public class GetQuestionUtil {
         questionTitle.setText(data.getmTitle());
         TextView questionText = (TextView) headView.findViewById(R.id.question_detail_text);
         questionText.setText(data.getmContent_text());
-        TextView questionValue = (TextView) headView.findViewById(R.id.question_detail_value);
-        questionValue.setText(String.format("%s", data.getmValue()));
 
         listView.addHeaderView(headView);
     }
-
+    private void showSuccessDialog(String msg, DialogInterface.OnClickListener positiveClickListener, DialogInterface.OnClickListener negativeClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage(msg);
+        builder.setPositiveButton(R.string.check, positiveClickListener);
+        builder.setNegativeButton(R.string.cancel, negativeClickListener);
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
     private DialogInterface.OnClickListener finishListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {

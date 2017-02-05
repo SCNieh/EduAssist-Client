@@ -59,9 +59,4 @@
     <string name="inputAnswer">输入答案</string>
     <string name="answerText">输入文字</string>
     <string name="answer_detail_title">答案详情</string>
-    <string name="private_question">想要偷看？</string>
-    <string name="click_here">点击这里</string>
-    <string name="confirm_payment">“偷看”将扣除问题价值一半的费用：$</string>
-    <string name="continue_or_not"> , 是否继续？</string>
-    <string name="payment_failed">扣费失败</string>
 </resources>

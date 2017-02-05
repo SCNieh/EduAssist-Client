@@ -90,13 +90,11 @@ public class UserInfoFragment extends Fragment implements LoaderManager.LoaderCa
         TextView userInfoEmail = (TextView) rootView.findViewById(R.id.user_info_email);
         TextView userInfoPrivateMode = (TextView) rootView.findViewById(R.id.user_info_private_mode);
         TextView userInfoSelfIntro = (TextView) rootView.findViewById(R.id.user_info_self_intro);
-        TextView userInfoValue = (TextView) rootView.findViewById(R.id.user_info_value);
 
         if(data != null){
             userInfoName.setText(data.getmName());
             userInfoTitle.setText(ConvertUtil.toTitle(data.getTitle()));
             userInfoId.setText(Integer.toString(data.getId()));
-            userInfoValue.setText(Float.toString(data.getmScore()));
             if(data.getEmail() == null || data.getEmail().isEmpty() || data.getEmail().equals("null")){
                 userInfoEmail.setVisibility(GONE);
             }else {

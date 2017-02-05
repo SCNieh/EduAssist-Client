@@ -1,12 +1,7 @@
 package com.example.shichaonie.eduassist.Activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
@@ -29,8 +24,6 @@ import com.example.shichaonie.eduassist.UserData.QuestionData;
 import com.example.shichaonie.eduassist.UserData.User;
 import com.example.shichaonie.eduassist.Utils.ConstantContract;
 import com.example.shichaonie.eduassist.Utils.GetQuestionUtil;
-import com.example.shichaonie.eduassist.Utils.HttpUtil;
-import com.example.shichaonie.eduassist.Utils.SubmitUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,9 +33,7 @@ import java.util.ArrayList;
 
 import static com.example.shichaonie.eduassist.R.id.action_menu_presenter;
 import static com.example.shichaonie.eduassist.R.id.question_title;
-import static com.example.shichaonie.eduassist.R.id.user_info_private_mode;
 import static com.example.shichaonie.eduassist.R.string.gender;
-import static com.example.shichaonie.eduassist.Utils.HttpUtil.myConnectionGET;
 
 /**
  * Created by Shichao Nie on 2017/1/28.
@@ -50,130 +41,27 @@ import static com.example.shichaonie.eduassist.Utils.HttpUtil.myConnectionGET;
 
 public class QuestionDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<AnswerData>> {
     private int questionId;
-    private int questionAttr;
-    private float questionValue;
-    private int answerStatus; // 0:  no answer
     public ListView listView;
-    private SharedPreferences sp;
-    private RelativeLayout  privateMode;
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_detail_activity);
 
-        sp = getSharedPreferences(ConstantContract.SP_TAG, MODE_PRIVATE);
         Intent intent = getIntent();
         questionId = intent.getIntExtra("questionId", -1);
-        questionAttr = intent.getIntExtra("questionAttr", -1);
-        questionValue = intent.getFloatExtra("questionValue", (float) 0.0);
-        answerStatus = intent.getIntExtra("answerStatus", -1);
         iniView();
         iniQuestion();
     }
-    private void getPermissionStatus(){
-        permissionThread thread = new permissionThread();
-        thread.start();
-    }
-
-    private Handler infoHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            String info = (String) msg.obj;
-            if(info.equals("Success")){
-                getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
-                privateMode.setVisibility(View.GONE);
-            }else {
-                Toast.makeText(QuestionDetailActivity.this, getResources().getString(R.string.payment_failed), Toast.LENGTH_LONG).show();
-            }
-        }
-    };
-    private Handler permissionHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            int permission = msg.what;
-            if(permission == 1){
-                privateMode.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
-            }else {
-
-                privateMode.setVisibility(View.VISIBLE);
-                AnswerAdapter adapter = new AnswerAdapter(QuestionDetailActivity.this, new ArrayList<AnswerData>());
-                listView.setAdapter(adapter);
-            }
-        }
-    };
 
     @Override
     protected void onStart() {
         super.onStart();
-        privateMode = (RelativeLayout) findViewById(R.id.question_detail_private_mode);
-        TextView clickHere = (TextView) findViewById(R.id.question_detail_click_here);
-        clickHere.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = getResources().getString(R.string.confirm_payment) + questionValue / 2.0 + getResources().getString(R.string.continue_or_not);
-                SubmitUtil.showSuccessDialog(QuestionDetailActivity.this, msg, positive, negative);
-            }
-        });
-        if(questionAttr == 1 || answerStatus == 0){//public or no answer
-            privateMode.setVisibility(View.GONE);
-            if(getSupportLoaderManager().getLoader(0) == null){
-                getSupportLoaderManager().initLoader(0, null, this).forceLoad();
-            }else {
-                getSupportLoaderManager().restartLoader(0, null, this).forceLoad();
-            }
-        }else { //private
-            getPermissionStatus();
-
-        }
-
-    }
-    private DialogInterface.OnClickListener positive = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            myThread thread = new myThread();
-            thread.start();
-
-        }
-    };
-    private DialogInterface.OnClickListener negative = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            if(dialog != null){
-                dialog.dismiss();
-            }
-        }
-    };
-    private class myThread extends Thread{
-        @Override
-        public void run() {
-            String url = ConstantContract.URL_USER_BASE + "payment/" + sp.getString(ConstantContract.SP_USER_ID, null) + "/" + (questionValue / 2.0) + "/" + questionId + "/";
-            Message message = infoHandler.obtainMessage();
-            message.obj = HttpUtil.myConnectionGET(url);
-            infoHandler.sendMessage(message);
-        }
-    }
-    private class permissionThread extends Thread{
-        @Override
-        public void run() {
-            String url = ConstantContract.URL_USER_BASE + "query/" + sp.getString(ConstantContract.SP_USER_ID, null) + "/" + questionId + "/";
-            int permissionInfo;
-            String text = myConnectionGET(url);
-            if(text.equals("True")){
-                permissionInfo = 1;
-            }else {
-                permissionInfo = 0;
-            }
-            permissionHandler.sendEmptyMessage(permissionInfo);
-        }
+        getSupportLoaderManager().initLoader(0, null, this).forceLoad();
     }
 
     private void iniView(){
         listView = (ListView) findViewById(R.id.question_detail_list);
-        fab = (FloatingActionButton) findViewById(R.id.question_detail_add_answer);
         ImageView imageBack = (ImageView) findViewById(R.id.question_detail_back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override

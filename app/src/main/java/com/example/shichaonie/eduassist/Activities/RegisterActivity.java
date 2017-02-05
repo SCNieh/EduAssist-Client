@@ -155,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity{
             }else {
                 mTitle = 1;
             }
-            User newUser = new User(usernameEditor.getText().toString(), passwordEditor.getText().toString(), mTitle, telEditor.getText().toString(), emailEditor.getText().toString(), mGender, 0, (float) 0);
+            User newUser = new User(usernameEditor.getText().toString(), passwordEditor.getText().toString(), mTitle, telEditor.getText().toString(), emailEditor.getText().toString(), mGender, 0);
             Gson gson = new Gson();
             responseString = myConnectionPOST(gson.toJson(newUser), url);
             Looper.prepare();
