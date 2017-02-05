@@ -62,16 +62,16 @@ public class SubmitUtil {
             mIs = s;
             if(mIs != null && mIs.equals("Success")){
                 shelterLayout.setVisibility(View.GONE);
-                showSuccessDialog(activity.getString(R.string.success), finishListener, finishListener);
+                showSuccessDialog(activity, activity.getString(R.string.success), finishListener, finishListener);
             }else {
                 shelterLayout.setVisibility(View.GONE);
-                showSuccessDialog(activity.getString(R.string.failed), stayListener, stayListener);
+                showSuccessDialog(activity, activity.getString(R.string.failed), stayListener, stayListener);
             }
         }
 
     }
-    private void showSuccessDialog(String msg, DialogInterface.OnClickListener positiveClickListener, DialogInterface.OnClickListener negativeClickListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    public static void showSuccessDialog(AppCompatActivity appCompatActivity, String msg, DialogInterface.OnClickListener positiveClickListener, DialogInterface.OnClickListener negativeClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(appCompatActivity);
         builder.setMessage(msg);
         builder.setPositiveButton(R.string.check, positiveClickListener);
         builder.setNegativeButton(R.string.cancel, negativeClickListener);

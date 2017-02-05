@@ -75,12 +75,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/user_info_email"
+                android:layout_marginStart="18dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_toEndOf="@+id/user_info_id_tag"
                 android:layout_toRightOf="@+id/user_info_id_tag"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 tools:text="123456" />
+            <ImageView
+                android:id="@+id/user_info_value_mark"
+                android:layout_toRightOf="@+id/user_info_id"
+                android:layout_toEndOf="@+id/user_info_id"
+                android:layout_above="@+id/user_info_email"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_attach_money_white"
+                android:contentDescription="@null"/>
+            <TextView
+                android:id="@+id/user_info_value"
+                android:layout_toEndOf="@+id/user_info_value_mark"
+                android:layout_toRightOf="@+id/user_info_value_mark"
+                android:layout_above="@+id/user_info_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="100"
+                android:textSize="17sp"
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/user_info_email"

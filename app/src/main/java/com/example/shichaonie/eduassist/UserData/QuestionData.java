@@ -2,6 +2,7 @@ package com.example.shichaonie.eduassist.UserData;
 
 import static android.R.attr.category;
 import static android.R.attr.id;
+import static android.R.attr.manageSpaceActivity;
 import static android.R.attr.text;
 import static android.R.attr.value;
 
@@ -24,9 +25,10 @@ public class QuestionData {
     private int mInvite_status; // answered: 0, refused: 1, wait-for-response: None
     private String mRefuse_reason;
     private float mValue;
+    private int mAnswerStatus;
 
     public  QuestionData(){}
-    public QuestionData(int id, int ask_id, int category, String title, String content_text,  int attribute, int question_status, float value){
+    public QuestionData(int id, int ask_id, int category, String title, String content_text,  int attribute, int question_status, float value, int answerStatus){
         mId = id;
         mAsk_id = ask_id;
         mCategory = category;
@@ -35,8 +37,9 @@ public class QuestionData {
         mAttribute = attribute;
         mQuestion_status = question_status;
         mValue = value;
+        mAnswerStatus = answerStatus;
     }
-    public QuestionData(int ask_id, int category, String title, String content_text,  int attribute, int invited_id, int question_status, float value){
+    public QuestionData(int ask_id, int category, String title, String content_text,  int attribute, int invited_id, int question_status, float value, int answerStatus){
         mAsk_id = ask_id;
         mCategory = category;
         mTitle = title;
@@ -45,6 +48,7 @@ public class QuestionData {
         mInvited_id = invited_id;
         mQuestion_status = question_status;
         mValue = value;
+        mAnswerStatus = answerStatus;
     }
 
     //private mode: refused
@@ -133,5 +137,8 @@ public class QuestionData {
     }
     public float getmValue() {
         return mValue;
+    }
+    public int getmAnswerStatus() {
+        return mAnswerStatus;
     }
 }

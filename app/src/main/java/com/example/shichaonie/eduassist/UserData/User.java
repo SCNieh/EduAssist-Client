@@ -42,7 +42,7 @@ public final class User {
         mUsername = username;
         mPassword = md5(password);
     }
-    public User(String username, String password, int title, String tel, String Email, int gender, int privateCode){
+    public User(String username, String password, int title, String tel, String Email, int gender, int privateCode, float score){
         mUsername = username;
         mPassword = md5(password);
         mTitle = title;
@@ -50,6 +50,7 @@ public final class User {
         mEmail = Email;
         mGender = gender;
         mPrivateCode = privateCode;
+        mScore = score;
     }
     public User(int id, String name, String username,  String selfIntro, int title){
         mId = id;
