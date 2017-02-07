@@ -50,6 +50,7 @@ import static com.example.shichaonie.eduassist.Utils.HttpUtil.myConnectionGET;
 
 public class QuestionDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<AnswerData>> {
     private int questionId;
+    private int invitedId;
     private int questionAttr;
     private float questionValue;
     private int answerStatus; // 0:  no answer
@@ -69,6 +70,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         questionAttr = intent.getIntExtra("questionAttr", -1);
         questionValue = intent.getFloatExtra("questionValue", (float) 0.0);
         answerStatus = intent.getIntExtra("answerStatus", -1);
+        invitedId = intent.getIntExtra("invitedId", -1);
         iniView();
         iniQuestion();
     }
@@ -93,12 +95,15 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         @Override
         public void handleMessage(Message msg) {
             int permission = msg.what;
-            if(permission == 1){
+            if(permission == 1 && !(sp.getString(ConstantContract.SP_USER_ID, null).equals(Integer.toString(invitedId)))){ //paid and user is not invited object
                 privateMode.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
-            }else {
-
+            }else if(sp.getString(ConstantContract.SP_USER_ID, null).equals(Integer.toString(invitedId))){
+                privateMode.setVisibility(View.GONE);
+                getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
+            }
+            else {
                 privateMode.setVisibility(View.VISIBLE);
                 AnswerAdapter adapter = new AnswerAdapter(QuestionDetailActivity.this, new ArrayList<AnswerData>());
                 listView.setAdapter(adapter);

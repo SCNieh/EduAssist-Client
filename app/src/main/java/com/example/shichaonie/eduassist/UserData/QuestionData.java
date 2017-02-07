@@ -28,9 +28,10 @@ public class QuestionData {
     private int mAnswerStatus;
 
     public  QuestionData(){}
-    public QuestionData(int id, int ask_id, int category, String title, String content_text,  int attribute, int question_status, float value, int answerStatus){
+    public QuestionData(int id, int ask_id, int invited_id, int category, String title, String content_text,  int attribute, int question_status, float value, int answerStatus){
         mId = id;
         mAsk_id = ask_id;
+        mInvited_id = invited_id;
         mCategory = category;
         mTitle = title;
         mContent_text = content_text;
