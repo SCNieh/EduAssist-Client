@@ -1,6 +1,7 @@
 package com.example.shichaonie.eduassist.Activities;
 
 
+import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shichaonie.eduassist.MainActivityFragments.MyQuestionFragment;
 import com.example.shichaonie.eduassist.MainActivityFragments.UserInfoFragment;
 import com.example.shichaonie.eduassist.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -225,7 +227,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        TextView SlidingMenuMyQuenstion = (TextView) findViewById(R.id.slide_menu_question);
+        TextView SlidingMenuMyQuestion = (TextView) findViewById(R.id.slide_menu_question);
+        SlidingMenuMyQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sp.getString(SP_USER_ID, null) != null){
+                    MyQuestionFragment myQuestionFragment = new MyQuestionFragment();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.activity_main, myQuestionFragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    camera_fab.setVisibility(View.GONE);
+                    slidingMenu.toggle();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         TextView SlidingMenuMyAnswers = (TextView) findViewById(R.id.slide_menu_answers);
         TextView SlidingMenuMyAppointment = (TextView) findViewById(R.id.slide_menu_appointment);
     }

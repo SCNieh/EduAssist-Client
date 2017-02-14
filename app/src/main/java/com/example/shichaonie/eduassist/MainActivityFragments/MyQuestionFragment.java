@@ -1,36 +1,32 @@
 package com.example.shichaonie.eduassist.MainActivityFragments;
 
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shichaonie.eduassist.Activities.QuestionDetailActivity;
 import com.example.shichaonie.eduassist.MainActivityFragments.ContentFragmentUtils.QuestionAdapter;
-import com.example.shichaonie.eduassist.MainActivityFragments.ContentFragmentUtils.QuestionLoader;
+import com.example.shichaonie.eduassist.MainActivityFragments.MyQuestionUtil.MyQuestionLoader;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
-import com.example.shichaonie.eduassist.UserData.User;
-import com.example.shichaonie.eduassist.UserListUtils.UserAdapter;
-import com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner;
+import com.example.shichaonie.eduassist.Utils.ConstantContract;
 import com.example.shichaonie.eduassist.Utils.DataFilter;
+import com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,31 +36,44 @@ import java.util.List;
 import static com.example.shichaonie.eduassist.Utils.DataFilter.filterData;
 
 /**
- * Created by Shichao Nie on 2016/12/31.
+ * Created by Shichao Nie on 2017/2/14.
  */
 
-public class ContentFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<QuestionData>> {
-    private View rootView;
+public class MyQuestionFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<QuestionData>> {
+    public View rootView;
+    public FragmentManager fm;
+    public SharedPreferences sp;
+    public String userId = null;
     private int questionStatus = -1;
     private int questionCategory = -1;
     private int questionAttr = -1;
-    private ProgressBar mProgressBar;
-    private TextView emptyView;
-    private EditText searchEdit;
-    private ArrayList<QuestionData> questionList = new ArrayList<>();
     private ArrayList<QuestionData> filteredQuestionList = new ArrayList<>();
-    public String keywords = null;
+    private ArrayList<QuestionData> questionList = new ArrayList<>();
 
-    public ContentFragment(){
+    public MyQuestionFragment(){}
 
+    public void iniId(){
+        userId = sp.getString(ConstantContract.SP_USER_ID, null);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.content_fragment, container, false);
-        initTitleView();
+        rootView = inflater.inflate(R.layout.my_question_fragment, container, false);
+
         initFilterView();
+
+        sp = getActivity().getSharedPreferences(ConstantContract.SP_TAG, Context.MODE_PRIVATE);
+        fm = getFragmentManager();
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.my_question_back);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fm.popBackStack();
+                getActivity().findViewById(R.id.camera_fab).setVisibility(View.VISIBLE);
+            }
+        });
+        iniId();
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.question_list_swipe_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -72,35 +81,19 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                searchEdit.clearFocus();
-                keywords = searchEdit.getText().toString();
-                getLoaderManager().restartLoader(0, null, ContentFragment.this).forceLoad();
+                getLoaderManager().restartLoader(0, null, MyQuestionFragment.this).forceLoad();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
         getLoaderManager().initLoader(0, null, this).forceLoad();
-
         return rootView;
     }
-    private void initTitleView(){
-        searchEdit = (EditText) rootView.findViewById(R.id.search_edit);
-        searchEdit.clearFocus();
-        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    keywords = searchEdit.getText().toString();
-                    getLoaderManager().restartLoader(0, null, ContentFragment.this).forceLoad();
-                }
-                return true;
-            }
-        });
-    }
+
     private void initFilterView(){
-        NiceSpinner niceSpinnerStatus = (NiceSpinner) rootView.findViewById(R.id.nice_spinner_status);
-        NiceSpinner niceSpinnerCategory = (NiceSpinner) rootView.findViewById(R.id.nice_spinner_category);
-        NiceSpinner niceSpinnerAttr = (NiceSpinner) rootView.findViewById(R.id.nice_spinner_attr);
+        NiceSpinner niceSpinnerStatus = (NiceSpinner) rootView.findViewById(R.id.my_question_nice_spinner_status);
+        NiceSpinner niceSpinnerCategory = (NiceSpinner) rootView.findViewById(R.id.my_question_nice_spinner_category);
+        NiceSpinner niceSpinnerAttr = (NiceSpinner) rootView.findViewById(R.id.my_question_nice_spinner_attr);
 
         List<String> status = new LinkedList<>(Arrays.asList(this.getResources().getStringArray(R.array.array_status)));
         List<String> category = new LinkedList<>(Arrays.asList(this.getResources().getStringArray(R.array.array_category)));
@@ -123,10 +116,9 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private AdapterView.OnItemSelectedListener  filterSelectedStatus = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            searchEdit.clearFocus();
             questionStatus = position - 1;
-            filteredQuestionList = filterData(questionList, questionStatus, questionCategory, questionAttr);
-            updateUi(filteredQuestionList);
+            filteredQuestionList = DataFilter.filterData(questionList, questionStatus, questionCategory, questionAttr);
+            updateUI(filteredQuestionList);
         }
 
         @Override
@@ -137,10 +129,9 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private AdapterView.OnItemSelectedListener filterSelectedCategory = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            searchEdit.clearFocus();
             questionCategory = position - 1;
             filteredQuestionList = filterData(questionList, questionStatus, questionCategory, questionAttr);
-            updateUi(filteredQuestionList);
+            updateUI(filteredQuestionList);
         }
 
         @Override
@@ -151,10 +142,9 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
     private AdapterView.OnItemSelectedListener filterSelectedAttr = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            searchEdit.clearFocus();
             questionAttr = position - 1;
             filteredQuestionList = filterData(questionList, questionStatus, questionCategory, questionAttr);
-            updateUi(filteredQuestionList);
+            updateUI(filteredQuestionList);
         }
 
         @Override
@@ -163,35 +153,24 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         }
     };
 
-
     @Override
     public Loader<ArrayList<QuestionData>> onCreateLoader(int id, Bundle args) {
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(View.VISIBLE);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
-        emptyView.setVisibility(View.GONE);
-        return new QuestionLoader(this.getContext(), keywords);
+        return new MyQuestionLoader(this.getContext(), userId);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<QuestionData>> loader, ArrayList<QuestionData> data) {
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(View.GONE);
         questionList = data;
-        updateUi(data);
+        updateUI(data);
     }
 
-    private void updateUi(final ArrayList<QuestionData> data){
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
-        emptyView.setText(R.string.noData);
-        if(data == null || data.isEmpty()){
-            emptyView.setVisibility(View.VISIBLE);
-        }else {
-            emptyView.setVisibility(View.GONE);
-        }
-
+    @Override
+    public void onLoaderReset(Loader<ArrayList<QuestionData>> loader) {
+        updateUI(new ArrayList<QuestionData>());
+    }
+    private void updateUI(ArrayList<QuestionData> data){
         QuestionAdapter adapter = new QuestionAdapter(this.getContext(), data);
-        final ListView questionList = (ListView) rootView.findViewById(R.id.question_list);
+        final ListView questionList = (ListView) rootView.findViewById(R.id.my_question_list);
         questionList.setAdapter(adapter);
 
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -222,14 +201,9 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
                 intent.putExtra("invitedId", invitedId);
                 startActivity(intent);
 
-                searchEdit.clearFocus();
             }
         });
 
     }
 
-    @Override
-    public void onLoaderReset(Loader<ArrayList<QuestionData>> loader) {
-        updateUi(new ArrayList<QuestionData>());
-    }
 }
