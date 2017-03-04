@@ -32,7 +32,7 @@
     <string name="myInfo">我的信息</string>
     <string name="myQuestions">我的提问</string>
     <string name="myAnswers">我的回答</string>
-    <string name="myAppointment">我的预约</string>
+    <string name="myAppointment">邀请回答</string>
     <string name="id">ID:</string>
     <string name="username">用户名</string>
     <string name="password">密码</string>
@@ -51,7 +51,7 @@
     <string name="searchUser">搜索用户</string>
     <string name="search">搜索</string>
     <string name="target">提问对象:</string>
-    <string name="loading">加载中...</string>
+    <string name="loading">加载中…</string>
     <string name="private_mode_not_support">该用户关闭了“向他提问”</string>
     <string name="question_detail_title">问题详情</string>
     <string name="userAnswers">用户回答</string>
@@ -66,4 +66,10 @@
     <string name="payment_failed">扣费失败</string>
     <string name="my_question">我的提问</string>
     <string name="score_not_enough">余额不足</string>
+    <string name="no_questions">您还未提过问题</string>
+    <string name="my_answer">我的回答</string>
+    <string name="no_answers">您还未回答过问题</string>
+    <string name="accept_answer">确定采纳此答案吗？</string>
+    <string name="accept_sucess">采纳成功！</string>
+    <string name="accept_failed">采纳失败！</string>
 </resources>

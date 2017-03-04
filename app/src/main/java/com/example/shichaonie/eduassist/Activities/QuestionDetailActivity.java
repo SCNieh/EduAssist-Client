@@ -50,10 +50,12 @@ import static com.example.shichaonie.eduassist.Utils.HttpUtil.myConnectionGET;
 
 public class QuestionDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<AnswerData>> {
     private int questionId;
+    private int askId;
     private int invitedId;
     private int questionAttr;
     private float questionValue;
     private int answerStatus; // 0:  no answer
+    private int questionStatus;
     public ListView listView;
     private SharedPreferences sp;
     private RelativeLayout  privateMode;
@@ -67,10 +69,12 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         sp = getSharedPreferences(ConstantContract.SP_TAG, MODE_PRIVATE);
         Intent intent = getIntent();
         questionId = intent.getIntExtra("questionId", -1);
+        askId = intent.getIntExtra("askId", -1);
         questionAttr = intent.getIntExtra("questionAttr", -1);
         questionValue = intent.getFloatExtra("questionValue", (float) 0.0);
         answerStatus = intent.getIntExtra("answerStatus", -1);
         invitedId = intent.getIntExtra("invitedId", -1);
+        questionStatus = intent.getIntExtra("questionStatus", 1);
         iniView();
         iniQuestion();
     }
@@ -236,6 +240,8 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
                     AnswerData answerData = (AnswerData) parent.getAdapter().getItem(position);
                     Intent intent = new Intent(QuestionDetailActivity.this, AnswerDetailActivity.class);
                     intent.putExtra("answerId", answerData.getmId());
+                    intent.putExtra("askId", askId);
+                    intent.putExtra("questionStatus", questionStatus);
                     startActivity(intent);
                 }
             }

@@ -12,50 +12,42 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_new_question"
         android:elevation="2dip">
+
         <RelativeLayout
-            android:id="@+id/question_answer_user_info"
+            android:id="@+id/my_answer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/question_answer_user_name"
+                android:id="@+id/my_answer_question_title"
                 android:layout_margin="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Tom"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="17sp"
-                android:layout_centerVertical="true"/>
-            <TextView
-                android:layout_margin="8dp"
-                android:id="@+id/question_answer_user_selfIntro"
-                android:layout_toRightOf="@+id/question_answer_user_name"
-                android:layout_toEndOf="@+id/question_answer_user_name"
-                android:layout_toLeftOf="@+id/question_answer_status"
-                android:layout_toStartOf="@+id/question_answer_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                tools:text="Test Question Title"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:layout_centerVertical="true"
-                tools:text="I'm Tom, I'm an aaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp"/>
             <ImageView
-                android:id="@+id/question_answer_status"
+                android:id="@+id/my_answer_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_complete_small"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"/>
         </RelativeLayout>
+
         <TextView
-            android:id="@+id/question_answer_user_answer"
-            android:layout_below="@id/question_answer_user_info"
+            android:id="@+id/my_answer_content_text"
+            android:layout_below="@id/my_answer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            tools:text="Those Lines here is just to show the user'answer to this question and to test the max line &amp; ellipsize config, and what ever I surrender "
-            android:textSize="16sp"
+            tools:text="Those Lines here is just to show the user'answer to this question and to test the max line and the ellipsize config, and what ever I can not make up more"
+            android:textSize="15sp"
             android:textColor="@android:color/black"
             android:maxLines="3"
             android:ellipsize="end"/>

@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         android:background="@color/colorPrimary">
         <ImageView
-            android:id="@+id/my_question_back"
+            android:id="@+id/my_answer_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
@@ -18,53 +18,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/my_question"
+            android:text="@string/my_answer"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/my_question_filter_bar"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner
-            android:id="@+id/my_question_nice_spinner_status"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner
-            android:id="@+id/my_question_nice_spinner_category"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner
-            android:id="@+id/my_question_nice_spinner_attr"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/question_list_swipe_layout"
+            android:id="@+id/answer_list_swipe_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ListView
-                android:id="@+id/my_question_list"
+                android:id="@+id/my_answer_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
         <TextView
-            android:id="@+id/my_question_empty"
+            android:id="@+id/my_answer_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_questions"
+            android:text="@string/no_answers"
             android:textSize="16sp"
             android:layout_centerInParent="true"/>
     </RelativeLayout>

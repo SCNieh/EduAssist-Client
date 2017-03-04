@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shichaonie.eduassist.MainActivityFragments.MyAnswersFragment;
 import com.example.shichaonie.eduassist.MainActivityFragments.MyQuestionFragment;
 import com.example.shichaonie.eduassist.MainActivityFragments.UserInfoFragment;
 import com.example.shichaonie.eduassist.R;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView askPrivate;
     private SharedPreferences sp;
     private FragmentManager fm;
+    private RelativeLayout mainBody;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,17 +57,11 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         iniView();
         iniSlidingMenu();
-//        if(!mark){
-//            FragmentManager fm = this.getSupportFragmentManager();
-//            FragmentTransaction ft = fm.beginTransaction();
-//            ft.replace(R.id.content_fragment, new ContentFragment());
-//            ft.commit();
-//        }
-//        mark = false;
     }
 
     private void iniView(){
         sp = getSharedPreferences(SP_TAG, MODE_PRIVATE);
+        mainBody = (RelativeLayout) findViewById(R.id.main_body);
         camera_fab = (FloatingActionButton) findViewById(R.id.camera_fab);
         camera_fab.setVisibility(View.VISIBLE);
         rotateAnimationAnticlockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise);
@@ -215,9 +211,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sp.getString(SP_USER_ID, null) != null){
                     UserInfoFragment userInfoFragment = new UserInfoFragment();
-                    //camera_fab.setVisibility(View.GONE);
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.activity_main, userInfoFragment);
+                    mainBody.setVisibility(View.GONE);
+                    camera_fab.setVisibility(View.GONE);
                     ft.addToBackStack(null);
                     ft.commit();
                     slidingMenu.toggle();
@@ -235,9 +232,10 @@ public class MainActivity extends AppCompatActivity {
                     MyQuestionFragment myQuestionFragment = new MyQuestionFragment();
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.activity_main, myQuestionFragment);
+                    mainBody.setVisibility(View.GONE);
+                    camera_fab.setVisibility(View.GONE);
                     ft.addToBackStack(null);
                     ft.commit();
-                    camera_fab.setVisibility(View.GONE);
                     slidingMenu.toggle();
                 }else {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -246,6 +244,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         TextView SlidingMenuMyAnswers = (TextView) findViewById(R.id.slide_menu_answers);
+        SlidingMenuMyAnswers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sp.getString(SP_USER_ID, null) != null){
+                    MyAnswersFragment myAnswersFragment = new MyAnswersFragment();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.activity_main, myAnswersFragment);
+                    mainBody.setVisibility(View.GONE);
+                    camera_fab.setVisibility(View.GONE);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    slidingMenu.toggle();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         TextView SlidingMenuMyAppointment = (TextView) findViewById(R.id.slide_menu_appointment);
     }
 
@@ -267,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 } else {
+                    mainBody.setVisibility(View.VISIBLE);
                     fm.popBackStack();
                 }
             }

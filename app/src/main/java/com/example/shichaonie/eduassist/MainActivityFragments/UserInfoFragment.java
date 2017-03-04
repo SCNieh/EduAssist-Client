@@ -61,6 +61,7 @@ public class UserInfoFragment extends Fragment implements LoaderManager.LoaderCa
             public void onClick(View v) {
                 fm.popBackStack();
                 getActivity().findViewById(R.id.camera_fab).setVisibility(View.VISIBLE);
+                getActivity().findViewById(R.id.main_body).setVisibility(View.VISIBLE);
             }
         });
         iniId();

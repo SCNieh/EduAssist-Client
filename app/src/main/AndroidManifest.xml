@@ -34,7 +34,6 @@
             android:name=".Activities.RegisterActivity"
             android:noHistory="true">
         </activity>
-        <activity android:name=".Activities.QuestionActivity"/>
         <activity android:name=".Activities.NewQuestionActivity"
             android:parentActivityName=".Activities.MainActivity">
             <meta-data

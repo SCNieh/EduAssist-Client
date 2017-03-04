@@ -4,28 +4,41 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/answer_detail_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:background="@color/colorPrimary">
         <ImageView
             android:id="@+id/answer_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"/>
         <TextView
+            android:layout_toRightOf="@+id/answer_detail_back"
+            android:layout_toEndOf="@+id/answer_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/answer_detail_title"
             android:textSize="20sp"
             android:textColor="@android:color/white"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"/>
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"/>
+        <ImageView
+            android:id="@+id/answer_detail_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_done_white_24px"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"/>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

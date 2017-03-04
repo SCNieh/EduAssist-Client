@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.AnswerData;
@@ -41,6 +43,14 @@ public class AnswerAdapter extends ArrayAdapter<AnswerData> {
 
         TextView answerText = (TextView) listView.findViewById(R.id.question_answer_user_answer);
         answerText.setText(answerData != null ? answerData.getmContent_text() : "");
+
+        ImageView answerStatus = (ImageView) listView.findViewById(R.id.question_answer_status);
+        assert answerData != null;
+        if(answerData.getmStatus() == 0){
+            answerStatus.setVisibility(View.VISIBLE);
+        }else {
+            answerStatus.setVisibility(View.GONE);
+        }
 
         return listView;
     }

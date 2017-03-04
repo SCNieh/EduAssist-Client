@@ -203,23 +203,29 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
                 QuestionAdapter adapter = (QuestionAdapter) questionList.getAdapter();
                 QuestionData question = adapter.getItem((int) id);
                 int questionId = 0;
+                int askId = 0;
                 int questionAttr = 0;
                 float questionValue = 0;
                 int answerStatus = 0;
                 int invitedId = -1;
+                int questionStatus = 1;
                 if (question != null) {
                     questionId = question.getmId();
+                    askId = question.getmAsk_id();
                     questionAttr = question.getmAttribute();
                     questionValue = question.getmValue();
                     answerStatus = question.getmAnswerStatus();
-                    invitedId  =question.getmInvited_id();
+                    invitedId  = question.getmInvited_id();
+                    questionStatus = question.getmQuestion_status();
                 }
                 Intent intent = new Intent(getContext(), QuestionDetailActivity.class);
                 intent.putExtra("questionId", questionId);
+                intent.putExtra("askId", askId);
                 intent.putExtra("questionAttr", questionAttr);
                 intent.putExtra("questionValue", questionValue);
                 intent.putExtra("answerStatus", answerStatus);
                 intent.putExtra("invitedId", invitedId);
+                intent.putExtra("questionStatus", questionStatus);
                 startActivity(intent);
 
                 searchEdit.clearFocus();
