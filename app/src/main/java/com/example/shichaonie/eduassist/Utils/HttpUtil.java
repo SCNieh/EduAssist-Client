@@ -22,6 +22,7 @@ public final class HttpUtil {
         String is = null;
         URL url = createUrl(Url);
         try {
+            assert url != null;
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5 * 1000);
             conn.setDoOutput(true);
@@ -37,6 +38,7 @@ public final class HttpUtil {
         }catch (IOException e){
             e.printStackTrace();
         }finally {
+            assert conn != null;
             conn.disconnect();
         }
         return is;
@@ -46,6 +48,7 @@ public final class HttpUtil {
         HttpURLConnection conn = null;
         String is = null;
         try {
+            assert url != null;
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setReadTimeout(10 * 1000);
@@ -57,9 +60,8 @@ public final class HttpUtil {
         }catch (IOException e){
             e.printStackTrace();
         }finally {
-            if(conn != null){
-                conn.disconnect();
-            }
+            assert conn != null;
+            conn.disconnect();
         }
         return is;
     }

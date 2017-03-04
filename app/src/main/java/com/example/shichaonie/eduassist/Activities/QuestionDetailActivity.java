@@ -105,6 +105,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
             }
             else {
                 privateMode.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.GONE);
                 AnswerAdapter adapter = new AnswerAdapter(QuestionDetailActivity.this, new ArrayList<AnswerData>());
                 listView.setAdapter(adapter);
             }
@@ -139,9 +140,14 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     private DialogInterface.OnClickListener positive = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            myThread thread = new myThread();
-            thread.start();
-
+            if(sp.getFloat(ConstantContract.SP_USER_SCORE, 0) < questionValue / 2.0){
+                String msg = getResources().getString(R.string.score_not_enough);
+                SubmitUtil.showSuccessDialog(QuestionDetailActivity.this, msg, negative, negative);
+            }
+            else {
+                myThread thread = new myThread();
+                thread.start();
+            }
         }
     };
     private DialogInterface.OnClickListener negative = new DialogInterface.OnClickListener() {
@@ -198,7 +204,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         });
     }
     private void iniQuestion(){
-        String url = ConstantContract.URL_QUESTIONS_BASE + questionId + "/";
+        String url = ConstantContract.URL_QUESTIONS_BASE + "detail/" + questionId + "/";
         RelativeLayout progressBar = (RelativeLayout) findViewById(R.id.question_detail_shelter);
         progressBar.setVisibility(View.VISIBLE);
         GetQuestionUtil getQuestionUtil = new GetQuestionUtil(url, QuestionDetailActivity.this);

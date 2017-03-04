@@ -21,5 +21,5 @@ public class ConstantContract {
     public static final String SP_PASSWORD = "password";
     public static final String SP_AUTO_LOGIN = "autoLogin";
     public static final String SP_USER_ID = "userId";
-
+    public static final String SP_USER_SCORE = "userScore";
 }

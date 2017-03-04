@@ -65,4 +65,5 @@
     <string name="continue_or_not"> , 是否继续？</string>
     <string name="payment_failed">扣费失败</string>
     <string name="my_question">我的提问</string>
+    <string name="score_not_enough">余额不足</string>
 </resources>

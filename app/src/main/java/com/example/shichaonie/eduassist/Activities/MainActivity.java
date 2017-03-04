@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton camera_fab;
     private Animation rotateAnimationAnticlockwise;
     private Animation rotateAnimationClockwise;
-    private Animation scaleAnimatioAppear;
+    private Animation scaleAnimationAppear;
     private Animation scaleAnimationGone;
     private TextView shelter;
     private TextView askPublic;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         camera_fab.setVisibility(View.VISIBLE);
         rotateAnimationAnticlockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise);
         rotateAnimationClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise);
-        scaleAnimatioAppear = AnimationUtils.loadAnimation(this, R.anim.scale_anim_appear);
+        scaleAnimationAppear = AnimationUtils.loadAnimation(this, R.anim.scale_anim_appear);
         scaleAnimationGone = AnimationUtils.loadAnimation(this, R.anim.scale_anim_gone);
         shelter = (TextView) findViewById(R.id.shelter);
         askPublic = (TextView) findViewById(R.id.ask_public);
@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
                     camera_fab.startAnimation(rotateAnimationAnticlockwise);
                     askPrivate.setVisibility(View.VISIBLE);
                     askPublic.setVisibility(View.VISIBLE);
-                    askPrivate.startAnimation(scaleAnimatioAppear);
-                    askPublic.startAnimation(scaleAnimatioAppear);
+                    askPrivate.startAnimation(scaleAnimationAppear);
+                    askPublic.startAnimation(scaleAnimationAppear);
                     isSelected = true;
                 }
                 else {

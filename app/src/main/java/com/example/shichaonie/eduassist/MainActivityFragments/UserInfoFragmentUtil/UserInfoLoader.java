@@ -36,7 +36,7 @@ public class UserInfoLoader extends AsyncTaskLoader<User> {
 
         return user;
     }
-    private User extractFeatureFromJson(String userInfoJSON) {
+    public static User extractFeatureFromJson(String userInfoJSON) {
         if (TextUtils.isEmpty(userInfoJSON)) {
             return null;
         }

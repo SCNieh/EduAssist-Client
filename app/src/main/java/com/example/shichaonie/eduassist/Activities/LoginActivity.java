@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shichaonie.eduassist.MainActivityFragments.UserInfoFragmentUtil.UserInfoLoader;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.User;
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_PASSWOR
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_REMEMBER_PASSWORD;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_TAG;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_ID;
+import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_SCORE;
 import static com.example.shichaonie.eduassist.Utils.HttpUtil.createUrl;
 import static com.example.shichaonie.eduassist.Utils.HttpUtil.myConnectionPOST;
 import static com.example.shichaonie.eduassist.UserData.User.md5;
@@ -133,11 +135,13 @@ public class LoginActivity extends AppCompatActivity {
                 String responseString = updateUserInfo(randomInteger);
                 verifyInfo = myConnectionPOST(responseString, url); //Second connection -- get response String.
                 if(!verifyInfo.equals("False")){
-                    sp.edit().putString(SP_USER_ID, verifyInfo).apply();
+                    User userInfo = UserInfoLoader.extractFeatureFromJson(verifyInfo);
+                    sp.edit().putString(SP_USER_ID, Integer.toString(userInfo.getId())).apply();
+                    sp.edit().putFloat(SP_USER_SCORE, userInfo.getmScore()).apply();
                     if(autoLogin.isChecked()){
-                        sp.edit().putBoolean(SP_AUTO_LOGIN,true).apply();
+                        sp.edit().putBoolean(SP_AUTO_LOGIN, true).apply();
                     }else {
-                        sp.edit().putBoolean(SP_AUTO_LOGIN,false).apply();
+                        sp.edit().putBoolean(SP_AUTO_LOGIN, false).apply();
                     }
                     if(rememPassword.isChecked()){
                         sp.edit().putBoolean(SP_REMEMBER_PASSWORD, true).apply();

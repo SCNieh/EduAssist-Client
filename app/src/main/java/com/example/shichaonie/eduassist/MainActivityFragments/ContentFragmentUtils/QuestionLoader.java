@@ -53,13 +53,6 @@ public class QuestionLoader extends android.support.v4.content.AsyncTaskLoader<A
         }
         ArrayList<QuestionData> questionData = extractFeatureFromJson(is);
 
-        //Code below just for test
-//        ArrayList<QuestionData> test = new ArrayList<>();
-//        test.add(new QuestionData(0, 1, 3, "测试测试测试标题!@#$%^&*_+~", 0, 1, (float) 3.99));
-//        test.add(new QuestionData(1, 0, 4, "测试测试测试标题asdxnuihqfsopjkm", 1, 0, (float) 10));
-//
-//        return test;
-
         return questionData;
     }
 
