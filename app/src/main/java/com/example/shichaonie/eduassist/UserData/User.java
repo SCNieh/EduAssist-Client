@@ -31,6 +31,7 @@ public final class User {
     private String mName;
     private int mTitle;
     private String mTel;
+    private String mNickname;
     private String mEmail;
     private int mGender;
     private String mSelfIntro;
@@ -42,9 +43,10 @@ public final class User {
         mUsername = username;
         mPassword = md5(password);
     }
-    public User(String username, String password, int title, String tel, String Email, int gender, int privateCode, float score){
+    public User(String username, String password, String nickname, int title, String tel, String Email, int gender, int privateCode, float score){
         mUsername = username;
         mPassword = md5(password);
+        mNickname = nickname;
         mTitle = title;
         mTel = tel;
         mEmail = Email;
@@ -123,5 +125,7 @@ public final class User {
     public void setPassword(String newPassword){
         mPassword = md5(newPassword);
     }
-
+    public String getmNickname() {
+        return mNickname;
+    }
 }

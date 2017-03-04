@@ -40,6 +40,7 @@
     <string name="register">还没有账号？去创建一个</string>
     <string name="register_title">注册</string>
     <string name="email">Email</string>
+    <string name="nickname">昵称</string>
     <string name="tel">Tel</string>
     <string name="gender">性别</string>
     <string name="title_teacher">教师</string>
@@ -72,4 +73,5 @@
     <string name="accept_answer">确定采纳此答案吗？</string>
     <string name="accept_sucess">采纳成功！</string>
     <string name="accept_failed">采纳失败！</string>
+
 </resources>

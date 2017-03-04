@@ -36,10 +36,12 @@ public class AnswerAdapter extends ArrayAdapter<AnswerData> {
         AnswerData answerData = getItem(position);
 
         TextView answerName = (TextView) listView.findViewById(R.id.question_answer_user_name);
-        answerName.setText(answerData != null ? answerData.getmAnswer_name() : "");
+        String name = answerData.getmAnswer_name();
+        answerName.setText(answerData != null ? ((name != null && !name.equals("null")) ? name : "Unknown") : "");
 
         TextView answerSelfIntro = (TextView) listView.findViewById(R.id.question_answer_user_selfIntro);
-        answerSelfIntro.setText(answerData != null ? answerData.getmAnswer_selfIntro() : "");
+        String selfIntro = answerData.getmAnswer_selfIntro();
+        answerSelfIntro.setText(answerData != null ? ((selfIntro != null && !selfIntro.equals("null")) ? selfIntro : "") : "");
 
         TextView answerText = (TextView) listView.findViewById(R.id.question_answer_user_answer);
         answerText.setText(answerData != null ? answerData.getmContent_text() : "");

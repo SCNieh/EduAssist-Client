@@ -38,6 +38,16 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"/>
+        <ImageView
+            android:id="@+id/answer_detail_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,9 +79,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:paddingTop="16dp"
         android:background="@android:color/white"
         tools:text="This is a test for answer detail text"
         android:textColor="@android:color/black"
-        android:textSize="17sp"/>
+        android:textSize="17sp"
+        android:visibility="visible"/>
+    <RelativeLayout
+        android:id="@+id/answer_detail_content_editable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/answer_detail_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_new_question"
+            android:textSize="15sp"/>
+        <EditText
+            android:id="@+id/answer_detail_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_new_question"
+            tools:text = "This is a test for answer detail text"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:inputType="text" />
+        <RelativeLayout
+            android:id="@+id/answer_detail_shelter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#40000000"
+                />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

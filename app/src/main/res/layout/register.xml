@@ -40,7 +40,11 @@
                 style="@style/RegisterEditor"
                 android:hint="@string/password"
                 android:textColorHint="@color/dark_gray"/>
-
+            <EditText
+                 android:id="@+id/register_nickname"
+                style="@style/RegisterEditor"
+                android:hint="@string/nickname"
+                android:textColorHint="@color/dark_gray"/>
             <EditText
                 android:id="@+id/register_Email"
                 style="@style/RegisterEditor"

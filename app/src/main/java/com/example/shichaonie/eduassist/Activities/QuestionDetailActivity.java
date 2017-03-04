@@ -7,6 +7,7 @@ import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
@@ -60,6 +61,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     private SharedPreferences sp;
     private RelativeLayout  privateMode;
     private FloatingActionButton fab;
+    private ArrayList<AnswerData> answerDatas;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,7 +139,6 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
             }
         }else { //private
             getPermissionStatus();
-
         }
 
     }
@@ -189,6 +190,30 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     private void iniView(){
         listView = (ListView) findViewById(R.id.question_detail_list);
         fab = (FloatingActionButton) findViewById(R.id.question_detail_add_answer);
+        if(sp.getString(ConstantContract.SP_USER_ID, "").equals(Integer.toString(askId))){
+            fab.setVisibility(View.GONE);
+        }
+        else {
+            fab.setVisibility(View.VISIBLE);
+        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isAnswered(Integer.parseInt(sp.getString(ConstantContract.SP_USER_ID, null)))){
+                    Intent intent = new Intent(QuestionDetailActivity.this, AnswerDetailActivity.class);
+                    intent.putExtra("questionId", questionId);
+                    intent.putExtra("answererId", Integer.parseInt(sp.getString(ConstantContract.SP_USER_ID, null)));
+                    intent.putExtra("askId", askId);
+                    intent.putExtra("questionStatus", questionStatus);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(QuestionDetailActivity.this, NewAnswerActivity.class);
+                    intent.putExtra("questionId", questionId);
+                    startActivity(intent);
+                }
+            }
+        });
+
         ImageView imageBack = (ImageView) findViewById(R.id.question_detail_back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,17 +221,16 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
                 finish();
             }
         });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.question_detail_add_answer);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionDetailActivity.this, NewAnswerActivity.class);
-                intent.putExtra("questionId", questionId);
-                startActivity(intent);
-            }
-        });
     }
+    private boolean isAnswered(int id){
+        for(int i = 0; i < answerDatas.size(); i++){
+            if (id == answerDatas.get(i).getmAnswers_id()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void iniQuestion(){
         String url = ConstantContract.URL_QUESTIONS_BASE + "detail/" + questionId + "/";
         RelativeLayout progressBar = (RelativeLayout) findViewById(R.id.question_detail_shelter);
@@ -222,6 +246,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
 
     @Override
     public void onLoadFinished(Loader<ArrayList<AnswerData>> loader, ArrayList<AnswerData> data) {
+        answerDatas = data;
         updateAnswers(data);
     }
 

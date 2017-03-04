@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity{
     private String responseString = "";
     private EditText usernameEditor;
     private EditText passwordEditor;
+    private EditText nickname;
     private EditText emailEditor;
     private EditText telEditor;
     private RadioButton student;
@@ -65,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity{
     private void initView(){
         usernameEditor = (EditText) findViewById(R.id.register_name);
         passwordEditor = (EditText) findViewById(R.id.register_password);
+        nickname = (EditText) findViewById(R.id.register_nickname);
         emailEditor = (EditText) findViewById(R.id.register_Email);
         genderSpinner = (Spinner) findViewById(R.id.register_gender);
         telEditor = (EditText) findViewById(R.id.register_Tel);
@@ -155,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity{
             }else {
                 mTitle = 1;
             }
-            User newUser = new User(usernameEditor.getText().toString(), passwordEditor.getText().toString(), mTitle, telEditor.getText().toString(), emailEditor.getText().toString(), mGender, 0, (float) 0);
+            User newUser = new User(usernameEditor.getText().toString(), passwordEditor.getText().toString(), nickname.getText().toString(), mTitle, telEditor.getText().toString(), emailEditor.getText().toString(), mGender, 0, (float) 0);
             Gson gson = new Gson();
             responseString = myConnectionPOST(gson.toJson(newUser), url);
             Looper.prepare();

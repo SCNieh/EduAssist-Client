@@ -53,7 +53,7 @@ public class NewAnswerActivity extends AppCompatActivity {
     }
     private String makeAnswer(String text){
         SharedPreferences sp = getSharedPreferences(ConstantContract.SP_TAG, MODE_PRIVATE);
-        int userId = Integer.parseInt(sp.getString("userId", null));
+        int userId = Integer.parseInt(sp.getString(ConstantContract.SP_USER_ID, null));
         AnswerData answerData = new AnswerData(questionId, userId, text, 1);
         Gson gson = new Gson();
 

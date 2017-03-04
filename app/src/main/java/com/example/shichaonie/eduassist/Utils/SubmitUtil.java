@@ -27,7 +27,7 @@ public class SubmitUtil {
     private static myAsyncTask task;
     private static String mIs = null;
     private RelativeLayout shelterLayout;
-    private static AppCompatActivity activity;
+    private AppCompatActivity activity;
 
     public SubmitUtil(String Info, String url, RelativeLayout layout, AppCompatActivity appCompatActivity){
         shelterLayout = layout;
