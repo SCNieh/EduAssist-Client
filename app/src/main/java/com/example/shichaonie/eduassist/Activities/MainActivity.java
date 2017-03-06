@@ -23,6 +23,7 @@ import com.example.shichaonie.eduassist.MainActivityFragments.UserInfoFragment;
 import com.example.shichaonie.eduassist.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_AUTO_LOGIN;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_NAME;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_TAG;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_ID;
@@ -177,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
-
             }
         });
         TextView SlideLogout = (TextView) findViewById(R.id.slide_menu_logout);
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("mark", 0);
                 startActivity(intent);
                 sp.edit().putString(SP_USER_ID, null).apply();
+                sp.edit().putBoolean(SP_AUTO_LOGIN, false).apply();
                 slidingMenu.toggle();
             }
         });
@@ -263,6 +264,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         TextView SlidingMenuMyAppointment = (TextView) findViewById(R.id.slide_menu_appointment);
+        SlidingMenuMyAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sp.getString(SP_USER_ID, null) != null){
+                    Intent intent = new Intent(MainActivity.this, MyInvitationActivity.class);
+                    startActivity(intent);
+                    slidingMenu.toggle();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

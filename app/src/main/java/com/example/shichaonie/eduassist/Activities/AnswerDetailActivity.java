@@ -169,7 +169,7 @@ public class AnswerDetailActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             String msg;
             if(s.equals("Success")){
-                msg = getResources().getString(R.string.accept_sucess);
+                msg = getResources().getString(R.string.accept_success);
             }else {
                 msg = getResources().getString(R.string.accept_failed);
             }

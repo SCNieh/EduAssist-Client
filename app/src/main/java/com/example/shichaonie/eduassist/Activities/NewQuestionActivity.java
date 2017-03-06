@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.shichaonie.eduassist.UserData.QuestionData;
+import com.example.shichaonie.eduassist.Utils.ConstantContract;
 import com.example.shichaonie.eduassist.Utils.HttpUtil;
 
 import com.example.shichaonie.eduassist.R;
@@ -34,6 +36,7 @@ import static android.R.attr.targetId;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static android.view.View.GONE;
+import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_SCORE;
 
 /**
  * Created by Shichao Nie on 2017/1/2.
@@ -52,6 +55,7 @@ public class NewQuestionActivity extends AppCompatActivity {
     private int questionAttr; //0: private, 1: public
     private String targetName;
     private int targetId;
+    private float currentScore;
     private static final String URL_SEND_PUBLIC = "http://10.0.2.2:5000/questions/add/public/";
     private static final String URL_SEND_PRIVATE = "http://10.0.2.2:5000/questions/add/private/";
 
@@ -60,6 +64,8 @@ public class NewQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_question);
 
+        sp = getSharedPreferences(ConstantContract.SP_TAG, MODE_PRIVATE);
+        currentScore = sp.getFloat(ConstantContract.SP_USER_SCORE, (float) 0);
         Intent intent = getIntent();
         if(intent != null && intent.getStringExtra("targetName") != null){
             questionAttr = 0;
@@ -122,6 +128,11 @@ public class NewQuestionActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //String newQuestion = makeQuestion(titleString, textString);
+            if(Float.parseFloat(newQuestionValue.getText().toString()) > currentScore){
+                String msg = getResources().getString(R.string.score_not_enough);
+                SubmitUtil.showSuccessDialog(NewQuestionActivity.this, msg, negative, negative);
+                return;
+            }
             String newQuestion = null;
             titleString = newQuestionTitle.getText().toString();
             textString = newQuestionText.getText().toString();
@@ -159,8 +170,17 @@ public class NewQuestionActivity extends AppCompatActivity {
         sp = getSharedPreferences("userInfo", MODE_PRIVATE);
         int userId = Integer.parseInt(sp.getString("userId", null));
         float value = Float.parseFloat(newQuestionValue.getText().toString());
+        sp.edit().putFloat(SP_USER_SCORE, currentScore - value).apply();
         QuestionData questionData = new QuestionData(userId, newQuestionCategory, title, text, questionAttr, targetId, 1, value, 0);
         Gson gson = new Gson();
         return gson.toJson(questionData);
     }
+    private DialogInterface.OnClickListener negative = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if(dialog != null){
+                dialog.dismiss();
+            }
+        }
+    };
 }

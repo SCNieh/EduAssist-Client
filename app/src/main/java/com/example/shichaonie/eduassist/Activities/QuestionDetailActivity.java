@@ -4,13 +4,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.cardemulation.HostNfcFService;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.NavUtils;
+import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -36,13 +40,17 @@ import com.example.shichaonie.eduassist.Utils.SubmitUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static android.R.string.no;
+import static android.os.Build.VERSION_CODES.N;
 import static com.example.shichaonie.eduassist.R.id.action_menu_presenter;
 import static com.example.shichaonie.eduassist.R.id.question_title;
 import static com.example.shichaonie.eduassist.R.id.user_info_private_mode;
 import static com.example.shichaonie.eduassist.R.string.gender;
+import static com.example.shichaonie.eduassist.R.string.myAnswers;
 import static com.example.shichaonie.eduassist.Utils.HttpUtil.myConnectionGET;
 
 /**
@@ -57,11 +65,13 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     private float questionValue;
     private int answerStatus; // 0:  no answer
     private int questionStatus;
+    private int userId;
     public ListView listView;
     private SharedPreferences sp;
-    private RelativeLayout  privateMode;
+    private RelativeLayout privateMode;
+    private RelativeLayout noAnswerStatus;
     private FloatingActionButton fab;
-    private ArrayList<AnswerData> answerDatas;
+    private ArrayList<AnswerData> answerData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +80,11 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
 
         sp = getSharedPreferences(ConstantContract.SP_TAG, MODE_PRIVATE);
         Intent intent = getIntent();
+        if(sp.getString(ConstantContract.SP_USER_ID, null) != null){
+            userId = Integer.parseInt(sp.getString(ConstantContract.SP_USER_ID, null));
+        }else {
+            userId = -1;
+        }
         questionId = intent.getIntExtra("questionId", -1);
         askId = intent.getIntExtra("askId", -1);
         questionAttr = intent.getIntExtra("questionAttr", -1);
@@ -101,15 +116,12 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         @Override
         public void handleMessage(Message msg) {
             int permission = msg.what;
-            if(permission == 1 && !(sp.getString(ConstantContract.SP_USER_ID, null).equals(Integer.toString(invitedId)))){ //paid and user is not invited object
+            if(permission == 1 && userId != invitedId){ //paid and user is not invited object
                 privateMode.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
-            }else if(sp.getString(ConstantContract.SP_USER_ID, null).equals(Integer.toString(invitedId))){
-                privateMode.setVisibility(View.GONE);
-                getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
             }
-            else {
+            else { // not permitted
                 privateMode.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.GONE);
                 AnswerAdapter adapter = new AnswerAdapter(QuestionDetailActivity.this, new ArrayList<AnswerData>());
@@ -122,6 +134,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     protected void onStart() {
         super.onStart();
         privateMode = (RelativeLayout) findViewById(R.id.question_detail_private_mode);
+        noAnswerStatus = (RelativeLayout) findViewById(R.id.question_detail_no_answer);
         TextView clickHere = (TextView) findViewById(R.id.question_detail_click_here);
         clickHere.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,18 +143,69 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
                 SubmitUtil.showSuccessDialog(QuestionDetailActivity.this, msg, positive, negative);
             }
         });
-        if(questionAttr == 1 || answerStatus == 0){//public or no answer
+        TextView goPublic = (TextView) findViewById(R.id.question_detail_go_public);
+        goPublic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String msg = getResources().getString(R.string.go_public_check);
+                SubmitUtil.showSuccessDialog(QuestionDetailActivity.this, msg, posGoPublic, negative);
+            }
+        });
+        if(questionAttr == 1){//public
+            if(userId == askId || userId == -1){
+                fab.setVisibility(View.GONE);
+            }else {
+                fab.setVisibility(View.VISIBLE);
+            }
             privateMode.setVisibility(View.GONE);
+            noAnswerStatus.setVisibility(View.GONE);
             if(getSupportLoaderManager().getLoader(0) == null){
                 getSupportLoaderManager().initLoader(0, null, this).forceLoad();
             }else {
                 getSupportLoaderManager().restartLoader(0, null, this).forceLoad();
             }
-        }else { //private
-            getPermissionStatus();
+        }else if(questionAttr == 0 && userId == invitedId){ // private and user is the invited one
+            privateMode.setVisibility(View.GONE);
+            fab.setVisibility(View.VISIBLE);
+            getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
         }
-
+        else if(questionAttr == 0 && userId == askId){ // private and  user is questioner
+            fab.setVisibility(View.GONE);
+            if(answerStatus == 0){ // if no answer
+                noAnswerStatus.setVisibility(View.VISIBLE);
+                privateMode.setVisibility(View.GONE);
+                AnswerAdapter adapter = new AnswerAdapter(QuestionDetailActivity.this, new ArrayList<AnswerData>());
+                listView.setAdapter(adapter);
+            }else {
+                privateMode.setVisibility(View.GONE);
+                if(getSupportLoaderManager().getLoader(0) == null){
+                    getSupportLoaderManager().initLoader(0, null, this).forceLoad();
+                }else {
+                    getSupportLoaderManager().restartLoader(0, null, this).forceLoad();
+                }
+            }
+        }
+        else { //private
+            if(answerStatus == 0){ // and user is not questioner or the invited one
+                privateMode.setVisibility(View.GONE);
+                fab.setVisibility(View.GONE);
+                getSupportLoaderManager().initLoader(0, null, QuestionDetailActivity.this).forceLoad();
+            }else if(userId != -1){
+                getPermissionStatus();
+            }else {
+                // please login
+            }
+        }
     }
+    private DialogInterface.OnClickListener posGoPublic = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            String url = ConstantContract.URL_QUESTIONS_BASE + "change_status/" + questionId + "/";
+            myAsyncTask task = new myAsyncTask();
+            task.execute(url);
+        }
+    };
+
     private DialogInterface.OnClickListener positive = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -163,6 +227,21 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
             }
         }
     };
+    private class myAsyncTask extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            return HttpUtil.myConnectionGET(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if(s.equals("Success")){
+
+            }
+        }
+    }
+
     private class myThread extends Thread{
         @Override
         public void run() {
@@ -190,11 +269,11 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
     private void iniView(){
         listView = (ListView) findViewById(R.id.question_detail_list);
         fab = (FloatingActionButton) findViewById(R.id.question_detail_add_answer);
-        if(sp.getString(ConstantContract.SP_USER_ID, "").equals(Integer.toString(askId))){
-            fab.setVisibility(View.GONE);
+        if(userId == invitedId){
+            fab.setVisibility(View.VISIBLE);
         }
         else {
-            fab.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.GONE);
         }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,8 +302,8 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
         });
     }
     private boolean isAnswered(int id){
-        for(int i = 0; i < answerDatas.size(); i++){
-            if (id == answerDatas.get(i).getmAnswers_id()){
+        for(int i = 0; i < answerData.size(); i++){
+            if (id == answerData.get(i).getmAnswers_id()){
                 return true;
             }
         }
@@ -246,7 +325,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements LoaderM
 
     @Override
     public void onLoadFinished(Loader<ArrayList<AnswerData>> loader, ArrayList<AnswerData> data) {
-        answerDatas = data;
+        answerData = data;
         updateAnswers(data);
     }
 

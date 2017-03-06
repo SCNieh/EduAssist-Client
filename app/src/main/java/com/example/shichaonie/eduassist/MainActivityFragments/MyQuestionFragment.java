@@ -193,12 +193,14 @@ public class MyQuestionFragment extends Fragment implements LoaderManager.Loader
                     }
                     QuestionAdapter adapter = (QuestionAdapter) questionList.getAdapter();
                     QuestionData question = adapter.getItem((int) id);
+                    int askId = -1;
                     int questionId = 0;
                     int questionAttr = 0;
                     float questionValue = 0;
                     int answerStatus = 0;
                     int invitedId = -1;
                     if (question != null) {
+                        askId = question.getmAsk_id();
                         questionId = question.getmId();
                         questionAttr = question.getmAttribute();
                         questionValue = question.getmValue();
@@ -211,6 +213,7 @@ public class MyQuestionFragment extends Fragment implements LoaderManager.Loader
                     intent.putExtra("questionValue", questionValue);
                     intent.putExtra("answerStatus", answerStatus);
                     intent.putExtra("invitedId", invitedId);
+                    intent.putExtra("askId", askId);
                     startActivity(intent);
 
                 }

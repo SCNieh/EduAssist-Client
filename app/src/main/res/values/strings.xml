@@ -71,7 +71,15 @@
     <string name="my_answer">我的回答</string>
     <string name="no_answers">您还未回答过问题</string>
     <string name="accept_answer">确定采纳此答案吗？</string>
-    <string name="accept_sucess">采纳成功！</string>
+    <string name="accept_success">采纳成功！</string>
     <string name="accept_failed">采纳失败！</string>
-
+    <string name="no_answer">暂无回答，</string>
+    <string name="go_public">将问题变为公开？</string>
+    <string name="go_public_check">"确定将问题公开？您的问题将可以被所有用户回答"</string>
+    <string name="my_invite">邀请回答</string>
+    <string name="no_invitation">暂无邀请</string>
+    <string name="appointment_name">预约人：</string>
+    <string name="questions">问题</string>
+    <string name="appointment">预约</string>
+    <string name="no_appointment">暂无预约</string>
 </resources>

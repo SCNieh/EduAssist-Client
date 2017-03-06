@@ -25,14 +25,14 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
-    <style name="StatusTab" parent="Widget.Design.TabLayout">
+    <style name="ItemTab" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@android:color/white</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
         <item name="tabBackground">@color/colorPrimary</item>
         <item name="tabTextAppearance">@style/StatusTabTextAppearance</item>
     </style>
     <style name="StatusTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textColor">#A8A19E</item>
+        <item name="android:textColor">@color/askTag</item>
     </style>
     <style name="SlidingMenuText">
         <item name="android:layout_width">wrap_content</item>

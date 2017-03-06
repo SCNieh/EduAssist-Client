@@ -11,4 +11,5 @@
     <color name="editTextHint">#E0E0E0</color>
     <color name="askTag">#BDBDBD</color>
     <color name="darkGrayBackground">#EEEEEE</color>
+    <color name="tabBackground">#0288D1</color>
 </resources>

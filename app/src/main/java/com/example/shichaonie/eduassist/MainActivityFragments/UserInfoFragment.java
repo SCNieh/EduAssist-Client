@@ -27,8 +27,10 @@ import static android.R.attr.dashGap;
 import static android.R.attr.data;
 import static android.R.attr.numberPickerStyle;
 import static android.R.attr.updatePeriodMillis;
+import static android.R.attr.value;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.view.View.GONE;
+import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_SCORE;
 
 /**
  * Created by Shichao Nie on 2017/1/4.
@@ -98,6 +100,7 @@ public class UserInfoFragment extends Fragment implements LoaderManager.LoaderCa
             userInfoTitle.setText(ConvertUtil.toTitle(data.getTitle()));
             userInfoId.setText(Integer.toString(data.getId()));
             userInfoValue.setText(Float.toString(data.getmScore()));
+            sp.edit().putFloat(SP_USER_SCORE, data.getmScore()).apply();
             if(data.getEmail() == null || data.getEmail().isEmpty() || data.getEmail().equals("null")){
                 userInfoEmail.setVisibility(GONE);
             }else {

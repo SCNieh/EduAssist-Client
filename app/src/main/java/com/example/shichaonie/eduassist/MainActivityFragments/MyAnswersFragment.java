@@ -121,7 +121,7 @@ public class MyAnswersFragment extends Fragment implements LoaderManager.LoaderC
                     if (id < -1) { //headview || footview
                         return;
                     }
-                    AnswerAdapter adapter = (AnswerAdapter) answerList.getAdapter();
+                    MyAnswerAdapter adapter = (MyAnswerAdapter) answerList.getAdapter();
                     AnswerData answer = adapter.getItem((int) id);
                     int questionId = 0;
                     int questionAttr = 0;
