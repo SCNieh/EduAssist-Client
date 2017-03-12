@@ -38,6 +38,7 @@ public final class User {
     private int mPrivateCode;
     private float mScore;
     private int mStatusCode = 1;
+    private int mCredit;
 
     public User(String username, String password){
         mUsername = username;
@@ -61,7 +62,7 @@ public final class User {
         mSelfIntro = selfIntro;
         mTitle = title;
     }
-    public User(int id, String name, String username, int title, String email, String selfIntro, int privateMode, int gender, String score){
+    public User(int id, String name, String username, int title, String email, String selfIntro, int privateMode, int gender, String score, int credit){
         mId = id;
         mName = name;
         mUsername = username;
@@ -70,7 +71,8 @@ public final class User {
         mPrivateCode = privateMode;
         mSelfIntro = selfIntro;
         mGender = gender;
-        if(score.equals("null") || score == null || score.isEmpty()){
+        mCredit = credit;
+        if(score.equals("null") || score.isEmpty()){
             mScore = (float) 0.0;
         }else {
             mScore = Float.parseFloat(score);
@@ -127,5 +129,9 @@ public final class User {
     }
     public String getmNickname() {
         return mNickname;
+    }
+
+    public int getmCredit() {
+        return mCredit;
     }
 }

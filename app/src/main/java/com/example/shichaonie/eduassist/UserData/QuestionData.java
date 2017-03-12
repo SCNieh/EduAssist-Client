@@ -26,9 +26,10 @@ public class QuestionData {
     private String mRefuse_reason;
     private float mValue;
     private int mAnswerStatus;
+    private long mDate;
 
     public  QuestionData(){}
-    public QuestionData(int id, int ask_id, int invited_id, int category, String title, String content_text,  int attribute, int question_status, float value, int answerStatus){
+    public QuestionData(int id, int ask_id, int invited_id, int category, String title, String content_text,  int attribute, int question_status, float value, int answerStatus, long date){
         mId = id;
         mAsk_id = ask_id;
         mInvited_id = invited_id;
@@ -39,6 +40,7 @@ public class QuestionData {
         mQuestion_status = question_status;
         mValue = value;
         mAnswerStatus = answerStatus;
+        mDate = date;
     }
     public QuestionData(int ask_id, int category, String title, String content_text,  int attribute, int invited_id, int question_status, float value, int answerStatus){
         mAsk_id = ask_id;
@@ -141,5 +143,9 @@ public class QuestionData {
     }
     public int getmAnswerStatus() {
         return mAnswerStatus;
+    }
+
+    public long getmDate() {
+        return mDate;
     }
 }

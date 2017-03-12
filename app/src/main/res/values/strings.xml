@@ -14,13 +14,13 @@
     <string name="politics">政治</string>
     <string name="history">历史</string>
     <string name="geography">地理</string>
-    <string name="mPrivate">私密</string>
+    <string name="mPrivate">个人</string>
     <string name="mPublic">公开</string>
     <string name="allData">全部</string>
     <string name="noData">暂无数据</string>
     <string name="searchQuestions">搜索题目</string>
     <string name="askPublic">公开提问</string>
-    <string name="askPrivate">私密提问</string>
+    <string name="askPrivate">个人提问</string>
     <string name="inputQuestion">输入问题</string>
     <string name="inputValue">输入赏金</string>
     <string name="title">标题</string>
@@ -82,4 +82,9 @@
     <string name="questions">问题</string>
     <string name="appointment">预约</string>
     <string name="no_appointment">暂无预约</string>
+    <string name="critical_credit">信用值不足，请保持良好使用习惯(积极回答问题)以提升信用值</string>
+    <string name="credit_high">信用良好</string>
+    <string name="credit_mid">信用一般</string>
+    <string name="credit_low">信用较低</string>
+    <string name="credit_status">信用状况</string>
 </resources>

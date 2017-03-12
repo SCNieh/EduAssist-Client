@@ -36,6 +36,7 @@ import static android.R.attr.targetId;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static android.view.View.GONE;
+import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_CREDIT;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_SCORE;
 
 /**
@@ -130,6 +131,10 @@ public class NewQuestionActivity extends AppCompatActivity {
             //String newQuestion = makeQuestion(titleString, textString);
             if(Float.parseFloat(newQuestionValue.getText().toString()) > currentScore){
                 String msg = getResources().getString(R.string.score_not_enough);
+                SubmitUtil.showSuccessDialog(NewQuestionActivity.this, msg, negative, negative);
+                return;
+            }else if(sp.getInt(SP_USER_CREDIT, 0) < 80){
+                String msg = getResources().getString(R.string.critical_credit);
                 SubmitUtil.showSuccessDialog(NewQuestionActivity.this, msg, negative, negative);
                 return;
             }

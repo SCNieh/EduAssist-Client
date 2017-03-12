@@ -72,8 +72,9 @@ public class UserInfoLoader extends AsyncTaskLoader<User> {
             }else {
                 gender = 0;
             }
+            int userCredit = userInfo.getInt("credit");
 
-            User user = new User(id, name, username, title, email, selfIntro, privateMode, gender, score);
+            User user = new User(id, name, username, title, email, selfIntro, privateMode, gender, score, userCredit);
             return user;
         } catch (JSONException e) {
             e.printStackTrace();

@@ -30,10 +30,12 @@ import com.example.shichaonie.eduassist.UserData.AnswerData;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
 import com.example.shichaonie.eduassist.Utils.ConstantContract;
 import com.example.shichaonie.eduassist.Utils.DataFilter;
+import com.example.shichaonie.eduassist.Utils.DateUtil;
 import com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -111,7 +113,8 @@ public class MyAnswersFragment extends Fragment implements LoaderManager.LoaderC
             emptyView.setVisibility(View.VISIBLE);
         }
         else {
-            MyAnswerAdapter adapter = new MyAnswerAdapter(this.getContext(), data);
+            ArrayList<AnswerData> newData = DateUtil.sortByDate_A(data);
+            MyAnswerAdapter adapter = new MyAnswerAdapter(this.getContext(), newData);
             final ListView answerList = (ListView) rootView.findViewById(R.id.my_answer_list);
             answerList.setAdapter(adapter);
 

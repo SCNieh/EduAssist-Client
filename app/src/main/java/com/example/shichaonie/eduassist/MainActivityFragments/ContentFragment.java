@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
 import com.example.shichaonie.eduassist.UserData.User;
 import com.example.shichaonie.eduassist.UserListUtils.UserAdapter;
+import com.example.shichaonie.eduassist.Utils.DateUtil;
 import com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner;
 import com.example.shichaonie.eduassist.Utils.DataFilter;
 
@@ -189,8 +191,9 @@ public class ContentFragment extends Fragment implements LoaderManager.LoaderCal
         }else {
             emptyView.setVisibility(View.GONE);
         }
+        ArrayList<QuestionData> newData = DateUtil.sortByDate_Q(data);
 
-        QuestionAdapter adapter = new QuestionAdapter(this.getContext(), data);
+        QuestionAdapter adapter = new QuestionAdapter(this.getContext(), newData);
         final ListView questionList = (ListView) rootView.findViewById(R.id.question_list);
         questionList.setAdapter(adapter);
 

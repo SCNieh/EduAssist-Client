@@ -46,6 +46,7 @@
         <activity android:name=".Activities.NewAnswerActivity"/>
         <activity android:name=".Activities.AnswerDetailActivity"/>
         <activity android:name=".Activities.MyInvitationActivity"/>
+        <activity android:name=".Activities.UserCreditActivity"/>
     </application>
 
 </manifest>

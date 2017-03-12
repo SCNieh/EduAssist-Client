@@ -32,6 +32,7 @@ import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_NAME;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_PASSWORD;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_REMEMBER_PASSWORD;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_TAG;
+import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_CREDIT;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_ID;
 import static com.example.shichaonie.eduassist.Utils.ConstantContract.SP_USER_SCORE;
 import static com.example.shichaonie.eduassist.Utils.HttpUtil.createUrl;
@@ -138,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                     User userInfo = UserInfoLoader.extractFeatureFromJson(verifyInfo);
                     sp.edit().putString(SP_USER_ID, Integer.toString(userInfo.getId())).apply();
                     sp.edit().putFloat(SP_USER_SCORE, userInfo.getmScore()).apply();
+                    sp.edit().putInt(SP_USER_CREDIT, userInfo.getmCredit()).apply();
                     if(autoLogin.isChecked()){
                         sp.edit().putBoolean(SP_AUTO_LOGIN, true).apply();
                     }else {

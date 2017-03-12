@@ -60,8 +60,9 @@ public class MyInvitationQuestionLoader extends android.support.v4.content.Async
                 int questionStatus = jsonObjectQuestion.getInt("question_status");
                 float value = (float) jsonObjectQuestion.getDouble("value");
                 int answer_status = jsonObjectQuestion.getInt("answer_status");
+                long date = (long) jsonObjectQuestion.getDouble("date") * 1000; // transfer from sec to millisec
 
-                questionData.add(new QuestionData(id, ask_id, invited_id, category, title, text,  attribute, questionStatus, value, answer_status));
+                questionData.add(new QuestionData(id, ask_id, invited_id, category, title, text,  attribute, questionStatus, value, answer_status, date));
             }
             return questionData;
         } catch (JSONException e) {

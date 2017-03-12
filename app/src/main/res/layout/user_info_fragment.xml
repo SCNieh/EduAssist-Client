@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/user_info_email"
                 android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="ID:"
                 android:textColor="@android:color/white"
@@ -133,6 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:text="@string/askMe"
                     android:textSize="17sp" />
 
@@ -141,9 +143,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:textSize="17sp"
                     tools:text="开启" />
-
+                <TextView
+                    android:id="@+id/user_info_credit_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/credit_status"
+                    android:textSize="17sp"
+                    android:textColor="@color/colorPrimary"
+                    android:autoLink="all"/>
             </LinearLayout>
 
             <TextView

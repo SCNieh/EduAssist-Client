@@ -18,6 +18,7 @@ import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.User;
 import com.example.shichaonie.eduassist.Utils.ConvertUtil;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.view.View.GONE;
 
 /**
@@ -80,13 +81,22 @@ public class UserListInfoActivity extends AppCompatActivity implements LoaderMan
     public void onLoaderReset(Loader<User> loader) {
         updateUI(null);
     }
-    public void updateUI(User data){
+    public void updateUI(final User data){
         TextView userInfoName = (TextView) findViewById(R.id.user_list_info_name);
         TextView userInfoTitle = (TextView) findViewById(R.id.user_list_info_title);
         TextView userInfoId = (TextView) findViewById(R.id.user_list_info_id);
         TextView userInfoEmail = (TextView) findViewById(R.id.user_list_info_email);
         TextView userInfoPrivateMode = (TextView) findViewById(R.id.user_list_info_private_mode);
         TextView userInfoSelfIntro = (TextView) findViewById(R.id.user_list_info_self_intro);
+        TextView userCreditStatus = (TextView) findViewById(R.id.user_list_info_credit_status);
+        userCreditStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserListInfoActivity.this, UserCreditActivity.class);
+                intent.putExtra("userCredit", data.getmCredit());
+                startActivity(intent);
+            }
+        });
 
         if(data != null){
             userInfoName.setText(data.getmName());

@@ -12,4 +12,7 @@
     <color name="askTag">#BDBDBD</color>
     <color name="darkGrayBackground">#EEEEEE</color>
     <color name="tabBackground">#0288D1</color>
+    <color name="credit_high">#00C853</color>
+    <color name="credit_mid">#FF6F00</color>
+    <color name="credit_low">#F44336</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.shichaonie.eduassist.MainActivityFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shichaonie.eduassist.Activities.UserCreditActivity;
 import com.example.shichaonie.eduassist.MainActivityFragments.UserInfoFragmentUtil.UserInfoLoader;
 import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.User;
@@ -94,6 +96,15 @@ public class UserInfoFragment extends Fragment implements LoaderManager.LoaderCa
         TextView userInfoPrivateMode = (TextView) rootView.findViewById(R.id.user_info_private_mode);
         TextView userInfoSelfIntro = (TextView) rootView.findViewById(R.id.user_info_self_intro);
         TextView userInfoValue = (TextView) rootView.findViewById(R.id.user_info_value);
+        TextView userCreditStatus = (TextView) rootView.findViewById(R.id.user_info_credit_status);
+        userCreditStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserCreditActivity.class);
+                intent.putExtra("userCredit", sp.getInt(ConstantContract.SP_USER_CREDIT, 0));
+                startActivity(intent);
+            }
+        });
 
         if(data != null){
             userInfoName.setText(data.getmName());

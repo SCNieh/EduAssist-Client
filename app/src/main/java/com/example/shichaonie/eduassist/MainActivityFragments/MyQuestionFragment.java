@@ -28,10 +28,12 @@ import com.example.shichaonie.eduassist.R;
 import com.example.shichaonie.eduassist.UserData.QuestionData;
 import com.example.shichaonie.eduassist.Utils.ConstantContract;
 import com.example.shichaonie.eduassist.Utils.DataFilter;
+import com.example.shichaonie.eduassist.Utils.DateUtil;
 import com.example.shichaonie.eduassist.Utils.NiceSpinner.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -181,7 +183,8 @@ public class MyQuestionFragment extends Fragment implements LoaderManager.Loader
             emptyView.setVisibility(View.VISIBLE);
         }
         else {
-            QuestionAdapter adapter = new QuestionAdapter(this.getContext(), data);
+            ArrayList<QuestionData> newData = DateUtil.sortByDate_Q(data);
+            QuestionAdapter adapter = new QuestionAdapter(this.getContext(), newData);
             final ListView questionList = (ListView) rootView.findViewById(R.id.my_question_list);
             questionList.setAdapter(adapter);
 

@@ -27,7 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_done_white_24px"/>
     </RelativeLayout>
@@ -108,13 +110,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/askMe"
                 android:textSize="17sp" />
 
@@ -123,9 +126,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
                 android:textSize="17sp"
+                android:layout_marginStart="16dp"
                 tools:text="开启" />
+            <TextView
+                android:id="@+id/user_list_info_credit_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/credit_status"
+                android:textSize="17sp"
+                android:textColor="@color/colorPrimary"
+                android:autoLink="all"/>
         </LinearLayout>
 
         <TextView
